@@ -43,3 +43,7 @@ Founder of [`Elizabeth Kodjo IT Ltd`]()
 Full-Stack Developer & Software Test Engineer
 Specialising in Python backend, React/Vite frontend, manual and automation testing.
 Committed to accessibility, elegant design and technical excellence.
+
+## 📜 License
+
+MIT License
