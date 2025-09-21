@@ -1,0 +1,40 @@
+@use 'sass:map';
+@use '../../styles/index.scss' as *;
+
+.footer {
+    background-color: map.get($colors, burgundy);
+    color: map.get($colors, cream);
+    padding: 2rem;
+    text-align: center;
+    font-size: map.get($font-sizes, sm);
+    font-family: map.get($fonts, sans);
+
+    @include respond-to(mobile) {
+        padding: 1.5rem 1rem;
+    }
+}
+
+
+.brand {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    // color: map.get($colors, gold);
+}
+
+.links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0;
+
+    li a {
+        text-decoration: none;
+        color: map.get($colors, cream);
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: map.get($colors, gold);
+        }
+    }
+}

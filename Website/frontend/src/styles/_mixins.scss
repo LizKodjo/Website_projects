@@ -1,0 +1,24 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+
+
+@mixin heading($size: xl, $weight: 700, $family: map.get(v.$fonts, serif), $color: map.get(v.$colors, gold)) {
+    font-family: $family;
+    font-weight: $weight;
+    color: $color;
+    font-size: map.get(v.$font-sizes, $size);
+}
+
+@mixin body-text($size: base, $weight: 400, $family: map.get(v.$fonts, sans), $color: map.get(v.$colors, ivory)) {
+    font-family: $family;
+    font-weight: $weight;
+    color: $color;
+    font-size: map.get(v.$font-sizes, $size);
+}
+
+@mixin respond-to($breakpoint) {
+    @media (max-width: map.get(v.$breakpoints, $breakpoint)) {
+        @content;
+    }
+}

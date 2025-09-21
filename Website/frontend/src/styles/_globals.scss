@@ -1,0 +1,15 @@
+@use 'sass:map';
+@use './variables' as v;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: map.get(v.$fonts, sans);
+    background-color: map.get(v.$colors, black);
+    color: map.get(v.$colors, ivory);
+    line-height: 1.6;
+}

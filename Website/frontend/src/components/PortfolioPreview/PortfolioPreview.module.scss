@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use '../../styles/index' as *;
+
+.portfolio {
+    background-color: map.get($colors, ivory);
+    color: map.get($colors, black);
+    padding: 4rem 2rem;
+    text-align: center;
+
+    @include respond-to(mobile) {
+        padding: 3rem 1rem;
+    }
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.heading {
+    @include heading(xl, 700, map.get($fonts, serif), map.get($colors, burgundy));
+    margin-bottom: 1rem;
+}
+
+.description {
+    @include body-text(base, 400, map.get($fonts, serif), map.get($colors, slate));
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.cta {
+    background-color: map.get($colors, burgundy);
+    color: map.get($colors, cream);
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: map.get($colors, gold);
+        color: map.get($colors, black);
+    }
+
+    @include respond-to(mobile) {
+        font-size: map.get($font-sizes, base);
+        padding: 0.5rem 1.5rem;
+    }
+}

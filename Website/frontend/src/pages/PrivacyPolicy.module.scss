@@ -1,0 +1,47 @@
+@use 'sass:map';
+@use '../styles/index.scss' as *;
+
+.privacy {
+    background-color: map.get($colors, black);
+    color: map.get($colors, cream);
+    padding: 4rem 2rem;
+
+    @include respond-to(mobile) {
+        padding: 3rem 1rem;
+    }
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.heading {
+    @include heading(xl);
+    margin-bottom: 1rem;
+}
+
+.subheading {
+    @include heading(md);
+    margin-bottom: 2rem;
+}
+
+.intro {
+    @include body-text(base);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.section {
+    margin-bottom: 2rem;
+
+    h3 {
+        @include heading(sm);
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        @include body-text(base);
+        line-height: 1.6;
+    }
+}

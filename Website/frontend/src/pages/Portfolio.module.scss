@@ -1,0 +1,74 @@
+@use 'sass:map';
+@use '../styles/index.scss' as *;
+
+.portfolio {
+    background-color: map.get($colors, ivory);
+    color: map.get($colors, black);
+    padding: 4rem 2rem;
+
+    @include respond-to(mobile) {
+        padding: 3rem 1rem;
+    }
+}
+
+.content {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.heading {
+    @include heading(xl, 700, map.get($fonts, serif), map.get($colors, burgundy));
+    margin-bottom: 1rem;
+}
+
+.intro {
+    @include body-text(base, 400, map.get($fonts, sans), map.get($colors, slate));
+    margin-bottom: 3rem;
+    line-height: 1.7;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1f));
+    gap: 2rem;
+}
+
+.card {
+    background-color: map.get($colors, cream);
+    border: 1px solid map.get($colors, gold);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: left;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+.title {
+    @include heading(lg, 600, map.get($fonts, serif), map.get($colors, burgundy));
+    margin-bottom: 0.5rem;
+}
+
+.description {
+    @include body-text(sm);
+    margin-bottom: 1rem;
+}
+
+.tech {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    li {
+        background-color: map.get($colors, gold);
+        color: map.get($colors, black);
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: map.get($font-sizes, sm);
+    }
+}

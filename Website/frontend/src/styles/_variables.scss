@@ -1,0 +1,27 @@
+$colors: (
+    black: #000,
+    gold: #FFD700,
+    burgundy: #800020,
+    cream: #FFFDD0,
+    ivory: #F8F4E3,
+    slate: #2F2F2F,
+);
+
+$fonts: (
+    serif: 'Georgia, serif',
+    sans: 'Arial, sans-serif',
+);
+
+$font-sizes: (
+    base: 1rem,
+    sm: 0.875rem,
+    lg: 1.25rem,
+    xl: 2rem,
+    xxl: 3rem,
+);
+
+$breakpoints: (
+    mobile: 480px,
+    tablet: 768px,
+    desktop: 1024px,
+    )
