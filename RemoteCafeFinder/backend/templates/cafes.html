@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Cafe Listings{% endblock %}
+
+{% block content %}
+ <div class="container py-5">
+    <h1 class="text-gold text-center mb-4">Work-Friendly Cafes</h1>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        {% for cafe in cafes %}
+        <div class="col">
+            <div class="card card-luxury h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-gold">{{cafe.name}}</h5>
+                    <p >{{cafe.location}}</p>
+                    <p><strong>Wi-Fi: </strong>{{cafe.wifi}}</p>
+                </div>
+            </div>
+           
+        </div>
+         {% endfor %}
+    </div>
+ </div>
+ {% endblock %}

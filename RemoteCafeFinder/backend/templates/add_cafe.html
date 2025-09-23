@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Add a Cafe{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <h1 class="text-gold text-center mb-4">Submit a New Cafe</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="/add-cafe" method="POST" class="bg-espresso p-4 rounded shadow">
+        <div class="mb-3">
+            <label for="name" class="form-label text-gold">Cafe Name</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label text-gold">Location</label>
+            <input type="text" id="location" class="form-control" name="location" required>
+        </div>
+        <div class="mb-3">
+            <label for="wifi" class="form-label text-gold">Wi-Fi Quality</label>
+            <select name="wifi" id="wifi" class="form-select">
+                <option >Excellent</option>
+                <option >Good</option>
+                <option >Fair</option>
+                <option >Poor</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-gold w-100">Submit Cafe</button>
+    </form>
+        </div>
+    </div>
+</div>
+
+
+ {% endblock %}
