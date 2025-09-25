@@ -1,0 +1,33 @@
+// Colors
+$espresso : #3d2717;
+$gold : #cda758;
+$matcha: #a3c57d;
+$cream: #f5f0e6;
+$charcoal: #1c1c1c;
+$rose: #e6b8b7;
+
+// Typography
+$font-stack: 'Inter', sans-serif;
+$heading-weight: 600;
+$body-weight: 400;
+
+// Spacing
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 2rem;
+
+.text-gold {
+    color: $gold;
+}
+
+.bg-espresso {
+    background-color: $espresso;
+}
+
+.border-gold {
+    border: 1px solid $gold;
+}
+
+.shadow-gold {
+    box-shadow: 0 0 10px rgba($gold, 0.3);
+}

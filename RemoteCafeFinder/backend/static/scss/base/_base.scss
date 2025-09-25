@@ -1,0 +1,19 @@
+@use 'variables';
+
+.btn-outline-gold{
+    background-color: transparent;
+    border: 1px solid variables.$gold;
+    color: variables.$gold;
+    font-weight: variables.$heading-weight;
+    transition: all 0.3s ease;
+
+
+    &:hover{
+        background-color: variables.$gold;
+        color: black;
+    }
+}
+
+.bg-espresso {
+    background-color: variables.$espresso;
+}

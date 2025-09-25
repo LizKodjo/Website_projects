@@ -1,0 +1,14 @@
+@use '../base/variables';
+
+.btn-gold{
+    background-color: variables.$gold;
+    color: black;
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.3s ease;
+
+    &:hover{
+        background-color: lighten(variables.$gold, 10%);
+        color: black;
+    }
+}

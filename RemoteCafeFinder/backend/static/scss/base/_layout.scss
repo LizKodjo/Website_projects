@@ -1,0 +1,8 @@
+@use 'variables';
+
+.container-fluid-gold{
+    background-color: variables.$charcoal;
+    padding: variables.$spacing-lg;
+    border-top: 2px solid variables.$gold;
+}
+
