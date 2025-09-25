@@ -5,6 +5,8 @@ import About from "./pages/About";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
+import AdminLogin from "./components/AdminLogin/AdminLogin";
 
 export default function Router() {
   return (
@@ -17,6 +19,8 @@ export default function Router() {
             <Route path="portfolio" element={<Portfolio />} />
             <Route path="contact" element={<Contact />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="admin" element={<AdminDashboard />} />
+            <Route path="admin/login" element={<AdminLogin />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -19,6 +19,7 @@
 
 .heading {
     @include heading(xl, 700, map.get($fonts, serif), map.get($colors, burgundy));
+
     margin-bottom: 1rem;
 }
 

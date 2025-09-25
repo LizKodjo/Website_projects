@@ -5,6 +5,7 @@
     background-color: map.get($colors, black);
     text-align: center;
     padding: 6rem 2rem;
+    height: 100vh;
     // border: 2px solid red;
 
     @include respond-to(tablet) {
@@ -71,6 +72,7 @@
 .imageContainer {
     flex: 1;
     max-width: 400px;
+    max-height: 100vh;
 
     img {
         width: 100%;

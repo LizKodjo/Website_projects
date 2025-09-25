@@ -2,168 +2,82 @@
 @use '../styles/index.scss' as *;
 
 
-.contact {
-    background-color: map.get($colors, cream);
+.contactSection {
+    background: linear-gradient(to right, #fdf6ec, #fbead1);
+    color: map.get($colors, black);
+    padding: 6rem 2rem;
+    border-top: 1px solid map.get($colors, gold);
+    border-bottom: 1px solid map.get($colors, gold);
+
+    @include respond-to(mobile) {
+        padding: 4rem 1rem;
+    }
+}
+
+.intro {
+    background-color: #fbead1;
     color: map.get($colors, black);
     padding: 4rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.05);
+    margin-bottom: 3rem;
 
     @include respond-to(mobile) {
         padding: 3rem 1rem;
     }
 }
 
-.top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 3rem;
-
-    @include respond-to(mobile) {
-        flex-direction: column;
-        text-align: center;
-    }
+.formWrapper {
+    background-color: map.get($colors, white);
+    padding: 4rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-.text {
-    flex: 1;
-}
-
-.content {
-    max-width: 700px;
-    margin: 0 auto;
+.intro,
+.featured,
+.formWrapper {
+    max-width: 800px;
+    margin: 0 auto 3rem;
     text-align: center;
 }
 
 .heading {
-    // @include heading(xl, 700, map.get($fonts, serif), map.get($colors, burgundy));
-    @include heading(xl);
+    @include heading(lg);
     margin-bottom: 1rem;
 }
 
-.subheading {
-    @include heading(md);
-    margin-bottom: 1rem;
-}
-
-.message {
+.subtext {
     @include body-text(base);
-    line-height: 1.6
+    margin-bottom: 2rem;
+    line-height: 1.6;
 }
 
-.imageContainer {
-    flex: 1;
-    max-width: 400px;
+.contactForm {
+    display: grid;
+    gap: 1.5rem;
 
-    img {
-        width: 100%;
-        border-radius: 12px;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-        object-fit: cover;
-    }
-}
-
-
-.intro {
-    //  @include body-text(base, 400, map.get($fonts, sans), map.get($colors, slate));
-    background-color: map.get($colors, cream);
-    color: map.get($colors, black);
-    padding: 3rem 2rem;
-    margin-top: 4rem;
-    // margin-bottom: 2rem;
-    // line-height: 1.7;
-    text-align: center;
-
-    .label {
-        font-size: 0.75rem;
-        color: map.get($colors, gold);
-        letter-spacing: 1px;
-        margin-bottom: 0.5rem;
-    }
-
-    .name {
-        @include heading(md);
-        margin-bottom: 1rem;
-    }
-}
-
-.featured {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 3rem;
-    margin-top: 4rem;
-
-    @include respond-to(mobile) {
-        flex-direction: column;
-    }
-
-    .featureText {
-        flex: 1;
-    }
-
-    .contactBox {
-        background-color: map.get($colors, burgundy);
-        color: map.get($colors, cream);
-        padding: 2rem;
+    input,
+    textarea {
+        padding: 1rem;
+        border: 1px solid map.get($colors, gold);
         border-radius: 8px;
-        flex: 1;
-
-        p {
-            margin-bottom: 1rem;
-        }
+        font-size: 1rem;
+        background-color: map.get($colors, white);
+        color: map.get($colors, black);
     }
 
-    .label {
-        font-size: 0.75rem;
-        color: map.get($colors, gold);
-        letter-spacing: 1px;
-        margin-bottom: 0.5rem;
-    }
-
-    .name {
-        @include heading(md);
-        margin-bottom: 1rem;
-    }
-}
-
-
-.footer {
-    margin-top: 4rem;
-    text-align: center;
-
-    .label {
-        font-size: 0.75rem;
-        color: map.get($colors, gold);
-        letter-spacing: 1px;
-    }
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.input,
-.textarea {
-    padding: 0.75rem 1rem;
-    border: 1px solid map.get($colors, gold);
-    border-radius: 6px;
-    font-size: map.get($font-sizes, base);
-    font-family: map.get($fonts, sans);
-}
-
-.button {
-    background-color: map.get($colors, burgundy);
-    color: map.get($colors, cream);
-    padding: 0.75rem 2rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    &:hover {
+    button {
         background-color: map.get($colors, gold);
         color: map.get($colors, black);
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            background-color: map.get($colors, cream);
+        }
     }
 }

@@ -1,8 +1,10 @@
+import Hero from "../components/Hero/Hero";
 import styles from "./PrivacyPolicy.module.scss";
 
 export default function PrivacyPolicy() {
   return (
     <>
+      <Hero />
       <section className={styles.privacy}>
         <div className={styles.content}>
           <h1 className={`${styles.heading} gold-gradient`}>Privacy Policy</h1>

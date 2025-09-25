@@ -1,0 +1,90 @@
+@use 'sass:map';
+@use '../../styles/index' as *;
+
+.tiles {
+    background-color: map.get($colors, black);
+    padding: 4rem 2rem;
+    color: map.get($colors, cream);
+}
+
+.heading {
+    @include heading(xl);
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.tile {
+    background-color: map.get($colors, slate);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+
+    .image {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+    }
+
+    .title {
+        @include heading(md);
+        margin-bottom: 0.5rem;
+    }
+
+    .description {
+        @include body-text(base);
+        margin-bottom: 1rem;
+    }
+
+    .tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        span {
+            background-color: map.get($colors, burgundy);
+            color: map.get($colors, cream);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+    }
+}
+
+.githubLink {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: map.get($colors, gold);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid map.get($colors, gold);
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: map.get($colors, cream);
+        border-color: map.get($colors, cream);
+    }
+}
+
+.githubIcon {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: map.get($colors, gold);
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: map.get($colors, cream);
+    }
+}

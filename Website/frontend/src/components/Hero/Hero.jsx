@@ -35,23 +35,6 @@ export default function Hero() {
           </div>
         </div>
       </section>
-      {/* <section className={styles.hero}>
-        <h1 className={styles.title} data-aos="fade-up">
-          Full Stack Python Developer
-        </h1>
-        <p className={styles.tagline} data-aos="fade-up" data-aos-delay="200">
-          I build web application to solve users' problems as a Python
-          Developer.
-        </p>
-        <button
-          className={styles.cta}
-          onClick={() => navigate("/portfolio")}
-          data-aos="zoom-in"
-          data-aos-delay="400"
-        >
-          View Portfolio
-        </button>
-      </section> */}
     </>
   );
 }

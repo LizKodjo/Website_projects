@@ -49,3 +49,72 @@
     @include body-text(base);
     line-height: 1.7;
 }
+
+.coreSkills {
+    background-color: map.get($colors, cream);
+    color: map.get($colors, black);
+    padding: 4rem 2rem;
+    border-top: 1px solid map.get($colors, gold);
+    border-bottom: 1px solid map.get($colors, gold);
+}
+
+.coreSkills h2 {
+    @include heading(lg);
+    color: map.get($colors, gold);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.skillList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skillItem {
+    background-color: map.get($colors, white);
+    border-left: 4px solid map.get($colors, gold);
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.whatDrivesMe {
+    background: linear-gradient(to right, #fdf6ec, #fbead1);
+    color: map.get($colors, black);
+    padding: 4rem, 2rem;
+    border-top: 1px solid map.get($colors, gold);
+    border-bottom: 1px solid map.get($colors, gold);
+
+    @include respond-to(mobile) {
+        padding: 3rem 1rem;
+    }
+
+    h2 {
+        @include heading(lg);
+        color: map.get($colors, gold);
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    p {
+        @include body-text(base);
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.7;
+        font-weight: 500;
+        text-align: center;
+        color: map.get($colors, black);
+        padding-bottom: 2rem;
+
+    }
+}

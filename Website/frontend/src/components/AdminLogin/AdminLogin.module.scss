@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use '../../styles/index' as *;
+
+.adminLogin {
+    max-width: 400px;
+    margin: 6rem auto;
+    padding: 3rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: map.get($colors, gold);
+        text-align: center;
+    }
+
+    input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+    button {
+        width: 100%;
+        padding: 0.75rem;
+        background: map.get($colors, gold);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+
+        &:hover {
+            background: ligten(map.get($colors, gold), -10%);
+        }
+    }
+
+    p {
+        color: red;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+}

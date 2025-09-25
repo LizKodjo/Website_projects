@@ -1,0 +1,57 @@
+@use 'sass:map';
+@use '../../styles/index' as *;
+
+.adminDashboard {
+    background-color: #fdf6ec;
+    padding: 4rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
+    h2 {
+        @include heading(lg);
+        color: map.get($colors, gold);
+        margin-bottom: 2rem;
+    }
+
+    p {
+        @include body-text(base);
+        margin-bottom: 0.5rem;
+    }
+
+    hr {
+        margin: 2rem 0;
+        border: none;
+        border-top: 1px solid map.get($colors, gold);
+    }
+}
+
+.admin-dashboard {
+    padding: 4rem 2rem;
+    max-width: 800px;
+    margin: auto;
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: map.get($colors, gold);
+        text-align: center;
+    }
+
+    .message {
+        background: #fdf6ec;
+        border-left: 4px solid map.get($colors, gold);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 8px;
+
+        p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        em {
+            font-size: 0.9rem;
+            color: #666;
+        }
+    }
+}
