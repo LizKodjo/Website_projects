@@ -1,0 +1,12 @@
+@use '../base/variables';
+.input-group .form-control{
+    border: 1px solid variables.$gold;
+    background-color: variables.$espresso;
+    color: variables.$cream;
+}
+
+.input-group .btn-gold{
+    background-color: variables.$gold;
+    color: variables.$gold;
+    font-weight: bold;
+}
