@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Edit Cafe{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-gold text-center mb-4">Edit Cafe</h2>
+    <form action="" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label text-gold">Name</label>
+            <input type="text" name="name" class="form-control" value="{{cafe.name}}" required>
+
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label text-gold">Location</label>
+            <input type="text" name="location" class="form-control" value="{{cafe.location}}" required >
+        </div>
+        <div class="mb-3">
+            <label for="wifi" class="form-label text-gold">Wi-Fi Quality</label>
+            <input type="text" name="wifi" class="form-control" value="{{cafe.wifi}}" required>
+
+        </div>
+        <button type="submit" class="btn btn-gold w-100">Update Cafe</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,10 +1,13 @@
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, make_response, redirect, render_template, request, session
 from models import Admin, db, Cafe
 import os
 from dotenv import load_dotenv
 from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
+import csv
+import io
+
 
 load_dotenv()
 
@@ -111,6 +114,8 @@ def search():
 
 @app.route('/export')
 def export():
+    if 'admin_id' not in session:
+        return redirect('/login')
     cafes = Cafe.query.all()
     output = io.StringIO()
     writer = csv.writer(output)
@@ -121,6 +126,39 @@ def export():
     response.headers["Content-Disposition"] = "attachment; filename=cafes.csv"
     response.headers["Content-type"] = "text/csv"
     return response
+
+
+@app.route('/logout')
+def logout():
+    session.pop('admin_id', None)
+    flash("You've been logged out.", "info")
+    return redirect('/login')
+
+
+@app.route('/edit-cafe/<int:cafe_id>', methods=['GET', 'POST'])
+def edit_cafe(cafe_id):
+    if 'admin_id' not in session:
+        return redirect('/login')
+    cafe = Cafe.query.get_or_404(cafe_id)
+    if request.method == 'POST':
+        cafe.name = request.form['name']
+        cafe.location = request.form['location']
+        cafe.wifi = request.form['wifi']
+        db.session.commit()
+        flash("Cafe update!", "success")
+        return redirect('/admin-dashboard')
+    return render_template('edit_cafe.html', cafe=cafe)
+
+
+@app.route('/delete-cafe/<int:cafe_id>', methods=['POST'])
+def delete_cafe(cafe_id):
+    if 'admin_id' not in session:
+        return redirect('/login')
+    cafe = Cafe.query.get_or_404(cafe_id)
+    db.session.delete(cafe)
+    db.session.commit()
+    flash("Cafe deleted", "warning")
+    return redirect('/admin-dashboard')
 
 
 if __name__ == "__main__":
