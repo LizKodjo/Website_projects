@@ -1,5 +1,5 @@
 class Board:
-    """Board where the game would be played"""
+    """Initialise the board with numbered cells for user reference"""
 
     def __init__(self):
         self.cells = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]

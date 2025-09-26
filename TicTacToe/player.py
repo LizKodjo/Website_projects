@@ -1,5 +1,5 @@
 class Player:
-    """Player's move"""
+    """Store player name and symbol"""
 
     def __init__(self, name, symbol):
         self.name = name
