@@ -1,0 +1,11 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+.task-card {
+    background-color: v.$pastel-pink;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    font-family: v.$font-stack;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
