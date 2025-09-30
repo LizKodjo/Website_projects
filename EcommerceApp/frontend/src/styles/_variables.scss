@@ -1,0 +1,30 @@
+// Soft luxury tones
+$primary: #e8dff5;
+$accent: #b8e0d2;
+$neutral: #fdf6f0;
+$highlight: #f7caca;
+$deep: #a3b18a;
+
+// Typography
+$font-stack: 'Poppins', sans-serif;
+$text-dark: #3e3e3e;
+$text-light: #7a7a7a;
+$shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+// Breakpoints
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1440px;
+
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == sm {
+        @media (max-width: $breakpoint-sm) { @content;}
+    } @else if $breakpoint == md {
+        @media (max-width: $breakpoint-md) { @content;}
+    } @else if $breakpoint == lg {
+        @media (max-width: $breakpoint-lg){ @content;}
+    } @else if $breakpoint == xl {
+        @media (max-width: $breakpoint-xl){ @content;}
+    }
+}

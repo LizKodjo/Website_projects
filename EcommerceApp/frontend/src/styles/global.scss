@@ -1,0 +1,197 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Body Styles
+body {
+    
+    font-family: v.$font-stack;
+    background-color: v.$neutral;
+    color: v.$text-dark;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+
+    font-size: 16px;
+    @include v.respond-to(md) {
+        font-size: 15px;
+    }
+
+    @include v.respond-to(sm) {
+        font-size: 14px;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: v.$text-dark;
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 2.5rem;
+
+    @include v.respond-to(md) {
+        font-size: 2rem;
+    }
+
+    @include v.respond-to(sm) {
+        font-size: 1.75rem;
+    }
+}
+
+h2 {
+    font-size: 2rem;
+
+    @include v.respond-to(md) {
+        font-size: 1.75rem;
+    }
+
+    @include v.respond-to(sm) {
+        font-size: 1.5rem;
+    }
+}
+
+h {
+    font-size: 1.5rem;
+
+    @include v.respond-to(md) {
+        font-size: 1.25rem;
+    }
+
+    @include v.respond-to(sm) {
+        font-size: 1rem;
+    }
+}
+
+// Links
+a{
+    color: v.$accent;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: v.$highlight;
+    }
+}
+
+// Buttons
+button {
+    font-family: inherit;
+    background-color: v.$accent;
+    color: v.$text-dark;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    box-shadow: v.$shadow-soft;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+
+    &:hover{
+        background-color: v.$highlight;
+    }
+
+    @include v.respond-to(sm) {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+// Utility Classes
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+
+
+    @media (max-width: v.$breakpoint-md) {
+        padding: 1.5rem;
+    }
+
+    @media (max-width: v.$breakpoint-sm) {
+        padding: 1rem;
+    }
+}
+
+.shadowed{
+    box-shadow: v.$shadow-soft;
+
+    @include v.respond-to(sm) {
+        box-shadow: none;
+    }
+}
+
+.rounded {
+    border-radius: 8px;
+
+    @include v.respond-to(sm){
+        border-radius: 4px;
+    }
+}
+
+
+
+// Visibility
+.hide-on-mobile {
+    @include v.respond-to(sm) {
+        display: none !important;
+    }
+}
+
+.show-on-mobile{
+    display: none !important;
+
+    @include v.respond-to(sm) {
+        display: block !important;
+    }
+}
+
+.grid-responsive {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+
+    @include v.respond-to(sm){
+        grid-template-columns: 1fr;
+    }
+}
+
+.text-center{
+    text-align: center !important;
+}
+
+.text-left{
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.mt-sm {margin-top: 0.5rem !important;}
+.mt-md {margin-top: 1rem !important;}
+.mt-lg {margin-top: 2rem !important;}
+
+.mb-sm {margin-bottom: 0.5rem !important;}
+.mb-md { margin-bottom: 1rem !important;}
+.mb-lg {margin-bottom: 2rem !important;}
+
+.px-sm {padding-left: 0.5rem !important; padding-right: 0.5rem !important;}
+.px-md {padding-left: 1rem !important; padding-right: 1rem !important;}
+.px-lg {padding-left: 2rem !important; padding-right: 2rem !important;}
+
+// Images
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.img-rounded {
+    border-radius: 12px;
+}
