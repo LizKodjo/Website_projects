@@ -1,16 +1,17 @@
 import Hero from "../components/Hero/Hero";
+import HeroSection from "../components/Hero/HeroSection";
 import styles from "./PrivacyPolicy.module.scss";
 
 export default function PrivacyPolicy() {
   return (
     <>
-      <Hero />
+      <HeroSection heading="Privacy Policy" />
       <section className={styles.privacy}>
         <div className={styles.content}>
-          <h1 className={`${styles.heading} gold-gradient`}>Privacy Policy</h1>
+          {/* <h1 className={`${styles.heading} gold-gradient`}>Privacy Policy</h1>
           <h2 className={`${styles.subheading} gold=gradient`}>
             Elizabeth Kodjo
-          </h2>
+          </h2> */}
           <p className={styles.intro}>
             This Privacy Policy outlines how we handle the information you
             provide while using our website.

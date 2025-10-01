@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SECRET_TOKEN = os.getenv("SECRET_TOKEN")
+SECRET_TOKEN = os.getenv("ADMIN_TOKEN")
 
 admin_bp = Blueprint("admin", __name__)
 Session = sessionmaker(bind=engine)

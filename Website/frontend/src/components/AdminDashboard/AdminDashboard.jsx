@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "./AdminDashboard.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminDashboard() {
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
   const token = import.meta.env.VITE_ADMIN_TOKEN;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) return setError("Unauthorized");
@@ -40,6 +42,14 @@ export default function AdminDashboard() {
             <hr />
           </div>
         ))}
+        <button
+          onClick={() => {
+            localStorage.removeItem("adminToken");
+            navigate("/admin/login");
+          }}
+        >
+          Logout
+        </button>
       </section>
     </>
   );
