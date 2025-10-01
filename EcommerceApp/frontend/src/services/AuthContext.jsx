@@ -1,5 +1,7 @@
-const { createContext, useState, useContext } = require("react");
-const { jwt_decode, useNavigate } = require("react-router");
+import { createContext, useState, useContext } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -13,10 +15,10 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", token);
     setToken(token);
 
-    const decoded = jwt_decode(token);
+    const decoded = jwtDecode(token);
     const role = decoded.role;
 
-    if (role == "admin") {
+    if (role === "admin") {
       navigate("/admin");
     } else {
       navigate("/shop");
@@ -33,11 +35,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <>
-      <AuthContext.Provider value={{ token, login, signup, logout }}>
-        {children}
-      </AuthContext.Provider>
-    </>
+    <AuthContext.Provider value={{ token, login, signup, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

@@ -1,0 +1,27 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+.img-fluid{
+    max-width: 100%;
+    height: auto;
+}
+
+.img-rounded {
+    border-radius: v.$radius;
+}
+
+.shadowed {
+    box-shadow: v.$shadow;
+}
+
+.rounded {
+    border-radius: v.$radius;
+}
+
+.mt-lg {
+    margin-top: v.$spacing-lg;
+}
+
+.text-center {
+    text-align: center;
+}

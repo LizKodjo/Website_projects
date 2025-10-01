@@ -28,3 +28,7 @@ $breakpoint-xl: 1440px;
         @media (max-width: $breakpoint-xl){ @content;}
     }
 }
+
+$radius: 12px;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$spacing-lg: 2rem;

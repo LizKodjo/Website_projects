@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+button {
+    background-color: v.$accent;
+    color: white;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: v.$radius;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: darken(v.$accent, 10%);
+    }
+}

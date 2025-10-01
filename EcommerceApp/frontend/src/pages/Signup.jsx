@@ -2,19 +2,19 @@ import { useState } from "react";
 import { useAuth } from "../services/AuthContext";
 
 export default function Signup() {
-  const { login } = useAuth();
+  const { signup } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(email, password);
+    await signup(email, password);
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} className="container">
-        <h2>Login</h2>
+        <h2>Signup</h2>
         <input
           type="email"
           value={email}
@@ -29,7 +29,7 @@ export default function Signup() {
           placeholder="Password"
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit">Create Account</button>
       </form>
     </>
   );
