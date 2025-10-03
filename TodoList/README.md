@@ -1,4 +1,6 @@
-# 🌸 Pastel Productivity App
+![CI](https://github.com/LizKodjo/Website_projects/tree/main/TodoList/actions/workflows/test.yml/badge.svg)
+
+# 🌸 Todo Productivity App
 
 A full-stack, pastel-themed todo app built with React, FastAPI, and SQLite. Designed for elegance, accessibility, and real-time feedback — with features like due dates, category filtering, drag-and-drop sorting, and animated task transitions.
 
