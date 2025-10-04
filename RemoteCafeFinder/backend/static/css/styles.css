@@ -1,3 +1,15 @@
+:root {
+  --bg-color: #fefefe;
+  --text-color: #333;
+  --accent-color: #d4bfff;
+}
+
+[data-theme=dark] {
+  --bg-color: #1e1e1e;
+  --text-color: #f0f0f0;
+  --accent-color: #9f7aea;
+}
+
 .text-gold {
   color: #cda758;
 }
@@ -14,25 +26,28 @@
   box-shadow: 0 0 10px rgba(205, 167, 88, 0.3);
 }
 
+body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  font-family: "Inter", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .btn-outline-gold {
   background-color: transparent;
   border: 1px solid #cda758;
-  color: #cda758;
   font-weight: 600;
   transition: all 0.3s ease;
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 .btn-outline-gold:hover {
-  background-color: #cda758;
+  background-color: var(--accent-color);
   color: black;
 }
 
 .bg-espresso {
   background-color: #3d2717;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  color: #f5f0e6;
 }
 
 .text-gold {
@@ -64,7 +79,7 @@ h1, h2, h3 {
   transition: background-color 0.3s ease;
 }
 .btn-gold:hover {
-  background-color: rgb(216.7511520737, 187.6820276498, 127.2488479263);
+  background-color: scale(#cda758, 10%);
   color: black;
 }
 
@@ -91,6 +106,11 @@ h1, h2, h3 {
   }
 }
 
+.wifi-icon {
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+}
+
 .container {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -100,6 +120,46 @@ h1, h2, h3 {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+}
+
+.bg-espresso {
+  background-color: #3d2717;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.nav-link:hover {
+  color: #d4af37;
+}
+
+.input-group .form-control {
+  border: 1px solid #cda758;
+  background-color: #3d2717;
+  color: #f5f0e6;
+}
+
+.input-group .btn-gold {
+  background-color: #cda758;
+  color: #cda758;
+  font-weight: bold;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #cda758;
+}
+
+.btn-gold {
+  background-color: #cda758;
+  color: #3d2717;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -1,19 +1,32 @@
-@use 'variables';
+@use 'sass:map';
+@use 'variables' as v;
+
+
+body {
+    background-color: #{'var(--bg-color)'} !important;
+    color: #{'var(--text-color)'} !important;
+    font-family: v.$font-stack; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+    // border: 5px solid red;
+}
 
 .btn-outline-gold{
     background-color: transparent;
-    border: 1px solid variables.$gold;
-    color: variables.$gold;
-    font-weight: variables.$heading-weight;
+    border: 1px solid v.$gold;
+    // color: v.$gold;
+    font-weight: v.$heading-weight;
     transition: all 0.3s ease;
+    border-color: #{'var(--accent-color)'};
+    color: #{'var(--accent-color)'};
 
 
     &:hover{
-        background-color: variables.$gold;
+        // background-color: v.$gold;
+        background-color: #{'var(--accent-color)'};
         color: black;
     }
 }
 
 .bg-espresso {
-    background-color: variables.$espresso;
+    background-color: v.$espresso;
 }

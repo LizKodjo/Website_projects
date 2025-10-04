@@ -30,7 +30,19 @@
         <div class="card-body">
           <h5 class="card-title text-gold">{{ cafe.name }}</h5>
           <p>{{ cafe.location }}</p>
-          <p><strong>Wi-Fi:</strong> {{ cafe.wifi }}</p>
+          <!-- <p><strong>Wi-Fi:</strong> {{ cafe.wifi }}</p> -->
+           <p class="card-text">
+            Wi-Fi:
+            {% if cafe.wifi == "Excellent" %}
+            <span class="wifi-icon text-success">✅</span>
+            {% elif cafe.wifi == "Good" %}
+            <span class="wifi-icon text-warning">🟡</span>
+            {% elif cafe.wifi == "Poor" %}
+            <span class="wifi-icon text-danger">❌</span>
+            {% else %}
+            <span class="wifi-icon text-muted">❓</span>
+            {% endif %}
+           </p>
           <a href="/export" class="btn btn-gold mb-4">Download CSV</a>
           <!-- Future: Edit/Delete buttons -->
            <div class="d-flex justify-content-between mt-3">

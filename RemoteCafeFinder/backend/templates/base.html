@@ -1,37 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %} {% endblock %}</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
-<body class="bg-dark text-light">
-  <nav class="navbar navbar-expand-lg bg-espresso">
-    <div class="container-fluid">
-      <a href="/" class="navbar-brand text-gold fw-bold">Remote Cafe Finder</a>
-      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse" id="navMenu">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a href="/add-cafe" class="nav-link text-gold">Add Cafe</a></li>
-          <li class="nav-item"><a href="/cafes" class="nav-link text-gold">View Cafes</a></li>
-          {% if session.get('admin_id') %}
-          <li class="nav-item"><a href="/admin-dashboard" class="nav-link text-gold">Dashboard</a></li>
-          <li class="nav-item"><a href="/logout" class="nav-link text-gold">Logout</a></li>
-          {% else %}
-          <li class="nav-item"><a href="/login" class="nav-link text-gold">Admin Login</a></li>
-          {% endif %}
-        </ul>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %} {% endblock %}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg bg-espresso">
+      <div class="container-fluid">
+        <a href="/" class="navbar-brand text-gold fw-bold"
+          >Remote Cafe Finder</a
+        >
+        <button
+          type="button"
+          class="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="/add-cafe" class="nav-link text-gold">Add Cafe</a>
+            </li>
+            <li class="nav-item">
+              <a href="/cafes" class="nav-link text-gold">View Cafes</a>
+            </li>
+            <li class="nav-item">
+              <a href="/contact" class="nav-link text-gold">Contact</a>
+            </li>
+            {% if session.get('admin_id') %}
+            <li class="nav-item">
+              <a href="/admin-dashboard" class="nav-link text-gold"
+                >Dashboard</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="/logout" class="nav-link text-gold">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="/login" class="nav-link text-gold">Admin Login</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+      <button id="theme-toggle" class="btn btn-sm btn-outline-gold">
+        🌙 Toggle Theme
+      </button>
+    </nav>
 
-  {% block content %} {% endblock %}
+    {% block content %} {% endblock %}
 
-
-  
-  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

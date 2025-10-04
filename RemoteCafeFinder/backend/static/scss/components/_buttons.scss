@@ -8,7 +8,7 @@
     transition: background-color 0.3s ease;
 
     &:hover{
-        background-color: lighten(variables.$gold, 10%);
+        background-color: scale(variables.$gold, 10%);
         color: black;
     }
 }

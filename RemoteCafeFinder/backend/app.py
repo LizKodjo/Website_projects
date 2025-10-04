@@ -17,12 +17,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
+MY_EMAIL = os.getenv('MAIL_USERNAME')
 
-app.config['MAIL_SERVER'] = 'smtp.example.com'
-app.config['MAIL_PORT'] = 589
-app.config['MAIL_USERNAME'] = 'your@email.com'
-app.config['MAIL_PASSWORD'] = 'your-password'
-app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT'))
+app.config['MAIL_USERNAME'] = MY_EMAIL
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS')
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_DEFAULT_SENDER'] = MY_EMAIL
 mail = Mail(app)
 
 
@@ -33,6 +36,9 @@ def home():
 
 @app.route('/add-cafe', methods=['GET', 'POST'])
 def add_cafe():
+    if 'admin_id' not in session:
+        return redirect('/login')
+
     if request.method == 'POST':
         new_cafe = Cafe(
             name=request.form['name'],
@@ -42,8 +48,9 @@ def add_cafe():
         db.session.add(new_cafe)
         db.session.commit()
         flash(f"{new_cafe.name} added successfully!", "success")
-        msg = Message("New Cafe Added", recipients=["admin@email.com"])
+        msg = Message("New Cafe Added", recipients=[MY_EMAIL])
         msg.body = f"{new_cafe.name} was added at {new_cafe.location} with Wi-Fi: {new_cafe.wifi}"
+        mail.send(msg)
         return redirect('/cafes')
 
     return render_template('add_cafe.html')
@@ -51,9 +58,41 @@ def add_cafe():
 
 @app.route('/cafes')
 def cafes():
+    page = request.args.get('page', 1, type=int)
+    wifi_filter = request.args.get('wifi')
+    query = request.args.get('q', '')
+
+    base_query = Cafe.query
+
+    if query:
+        search = f"%{query}%"
+        base_query = base_query.filter(Cafe.name.ilike(
+            search) | Cafe.location.ilike(search) | Cafe.wifi.ilike(search))
+
+    if wifi_filter:
+        base_query = base_query.filter_by(wifi=wifi_filter)
+
+    cafes = db.paginate(base_query, page=page, per_page=10)
     # Test data
-    all_cafes = Cafe.query.all()
-    return render_template('cafes.html', cafes=all_cafes)
+    # all_cafes = Cafe.query.all()
+    return render_template('cafes.html', cafes=cafes)
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        message_body = request.form['message']
+
+        msg = Message(subject="New Contact Form Submission",
+                      sender=email, recipients=[MY_EMAIL])
+        msg.body = f"From: {name} <{email}>\n\n{message_body}"
+        mail.send(msg)
+
+        flash("Thanks for reaching out!  We'll be in touch soon.", "success")
+        return redirect("/contact")
+    return render_template('contact.html')
 
 
 @app.route('/admin')
@@ -91,14 +130,9 @@ def admin_dashboard():
 
     if query:
         search = f"%{query}%"
-        cafes = db.paginate(Cafe.query.filter(
-            Cafe.name.ilike(search) |
-            Cafe.location.ilike(search) |
-            Cafe.wifi.ilike(search)
-        ),
-            page=page,
-            per_page=10
-        )
+        cafes = db.paginate(Cafe.query.filter(Cafe.name.ilike(search) | Cafe.location.ilike(search) | Cafe.wifi.ilike(search)),
+                            page=page,
+                            per_page=10)
     else:
         cafes = db.paginate(Cafe.query, page=page, per_page=10)
 
@@ -145,7 +179,7 @@ def edit_cafe(cafe_id):
         cafe.location = request.form['location']
         cafe.wifi = request.form['wifi']
         db.session.commit()
-        flash("Cafe update!", "success")
+        flash("Cafe updated!", "success")
         return redirect('/admin-dashboard')
     return render_template('edit_cafe.html', cafe=cafe)
 
@@ -159,6 +193,22 @@ def delete_cafe(cafe_id):
     db.session.commit()
     flash("Cafe deleted", "warning")
     return redirect('/admin-dashboard')
+
+
+@app.cli.command("create-admin")
+def create_admin():
+    username = input("Enter admin username: ")
+    password = input("Enter admin password: ")
+
+    if Admin.query.filter_by(username=username).first():
+        print("❌ Admin already exists.")
+        return
+
+    hashed_pw = generate_password_hash(password)
+    new_admin = Admin(username=username, password_hash=hashed_pw)
+    db.session.add(new_admin)
+    db.session.commit()
+    print(f"✅ Admin '{username}' created successfully.")
 
 
 if __name__ == "__main__":

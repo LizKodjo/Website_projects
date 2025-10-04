@@ -1,12 +1,12 @@
-@use '../base/variables';
+@use '../base/variables' as v;
 
 .form-label {
     font-weight: 600;
-    color: $gold;
+    color: v.$gold;
 }
 
 .btn-gold{
-    background-color: $gold;
-    color: $espresso;
+    background-color: v.$gold;
+    color: v.$espresso;
     font-weight: bold;
 }

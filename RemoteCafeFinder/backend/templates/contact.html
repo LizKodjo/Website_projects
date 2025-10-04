@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-gold text-center mb-4">Contact Us</h2>
+    <form action="" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label text-gold">Your Name</label>
+            <input type="text" name="name" class="form-control"required />
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label text-gold">Your Email</label>
+            <input type="email" name="email" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="message" class="form-label text-gold">Message</label>
+            <textarea name="message" class="form-control" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold w-100">Send Message</button>
+    </form>
+</div>
+{% endblock %}

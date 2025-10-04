@@ -1,7 +1,7 @@
 @use '../base/variables';
 
 .bg-espresso{
-    background-color: #2c1f1f;
+    background-color: variables.$espresso;
 }
 
 .navbar-brand {
