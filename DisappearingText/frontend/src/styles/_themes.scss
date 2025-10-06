@@ -1,0 +1,13 @@
+:root[data-theme='block'] {
+    --bg: #1e1e1e;
+    --text: #fff;
+    --accent: #ff0055;
+    --warning: #ffaa00;
+}
+
+:root[data-theme='pastel'] {
+    --bg: #d6eaf8;
+    --text: #2c2c2c;
+    --accent: #f8d6e0;
+    --warning: #e6d6f8;
+}
