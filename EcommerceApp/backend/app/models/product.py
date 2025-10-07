@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float, Text
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, Float, Text
 from app.db.session import Base
+from datetime import datetime
 
 
 class Product(Base):
@@ -12,3 +13,8 @@ class Product(Base):
     category = Column(String, index=True)
     image_url = Column(String)
     stock = Column(Integer)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.now())
+    updated_at = Column(DateTime, default=datetime.now(),
+                        onupdate=datetime.now())
+    is_active = Column(Boolean, default=True)

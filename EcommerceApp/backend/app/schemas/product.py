@@ -1,21 +1,32 @@
-from pydantic import BaseModel
+from datetime import datetime
+from pydantic import BaseModel, field_validator, validator
 
 
-class ProductBase(BaseModel):
+# class ProductBase(BaseModel):
+#     name: str
+#     description: str
+#     price: float
+#     category: str
+#     image_url: str
+#     stock: int
+
+
+class ProductCreate(BaseModel):
     name: str
-    description: str
     price: float
-    category: str
     image_url: str
-    stock: int
+    category: str
+    description: str
+
+    @field_validator("price")
+    def price_must_be_positive(cls, v):
+        if v <= 0:
+            raise ValueError("Price must be greater than zero")
+        return v
 
 
-class ProductCreate(ProductBase):
-    pass
-
-
-class ProductOut(ProductBase):
+class ProductOut(ProductCreate):
     id: int
-
-    class Config:
-        orm_mode = True
+    created_at: datetime
+    updated_at: datetime
+    is_active: bool

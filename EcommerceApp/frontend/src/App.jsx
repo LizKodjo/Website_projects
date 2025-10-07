@@ -1,8 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useAuth } from "./services/AuthContext";
+import { useAuth } from "./context/AuthContext";
 import { jwtDecode } from "jwt-decode";
-import ProductList from "./pages/ProductList";
+import ProductList from "./components/ProductList";
 import AdminDashboard from "./pages/AdminDashboard";
+import Unauthorized from "./components/Unauthorized";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Checkout from "./pages/Checkout";
 
 const AdminRoute = ({ children }) => {
   const { token } = useAuth();
@@ -24,7 +28,10 @@ function App() {
         }
       />
 
-      <Route path="/shop" element={<ProductList />} />
+      <Route path="/shop" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/unauthorized" element={<Unauthorized />} />
     </Routes>
     // </>
   );
