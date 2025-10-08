@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { jwtDecode } from "jwt-decode";
-import ProductList from "./components/ProductList";
+import ProductList from "./components/Product/ProductList";
 import AdminDashboard from "./pages/AdminDashboard";
-import Unauthorized from "./components/Unauthorized";
+import Unauthorized from "./components/utils/Unauthorized";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";

@@ -1,36 +1,63 @@
 import { useState } from "react";
-import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import { setAuthToken } from "../api/axios";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
 
-  const handleLogin = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
     try {
-      const res = await axios.post("/api/v1/login", { email, password });
-      localStorage.setItem("token", res.data.access_token);
-      window.location.href = "/dashboard";
+      const res = await fetch("http://localhost:8000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "appication/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Login failed");
+      // Store JWT Token
+      console.log("JWT", data.access_token);
+
+      login(data.access_token);
+      setAuthToken(data.access_token);
     } catch (err) {
-      alert("Login failed");
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
-      <div className="login-form">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2>Login</h2>
         <input
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
+          type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          type="password"
+          required
         />
-        <button onClick={handleLogin}>Login</button>
-      </div>
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
+        {error && <p className="error">{error}</p>}
+      </form>
     </>
   );
 }
