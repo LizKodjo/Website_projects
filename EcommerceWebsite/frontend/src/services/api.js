@@ -10,12 +10,17 @@ const api = axios.create({
 });
 
 export const productService = {
-  getProducts: (category = null) => {
-    const params = category ? { category } : {};
+  getProducts: (category = null, filters = {}) => {
+    const params = { ...filters };
+    if (category) params.category = category;
     return api.get("/products/", { params });
   },
   getProduct: (id) => {
     return api.get(`/products/${id}`);
+  },
+
+  getCategories: () => {
+    return api.get("/products/categories/");
   },
 
   createProduct: (productData) => {
