@@ -1,58 +1,76 @@
-from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.session import get_db
-from app.schemas.product import Product, ProductCreate, ProductUpdate
-from app.crud import product as product_crud
-
+from app.models.product import Product
 
 router = APIRouter()
 
 
-@router.get("/", response_model=List[Product])
-def get_products(skip: int = 0, limit: int = 100, category: Optional[str] = None, min_price: Optional[float] = Query(None, ge=0), max_price: Optional[float] = Query(None, ge=0), search: Optional[str] = None, db: Session = Depends(get_db)):
-    """Get all products"""
-    products = product_crud.get_products(
-        db, skip=skip, limit=limit, category=category, min_price=min_price, max_price=max_price, search=search)
-    return products
+@router.get("/")
+def get_products(db: Session = Depends(get_db)):
+    """Get all products - show all products without limits"""
+    try:
+        print("🔍 Products endpoint called - fetching ALL products")
+
+        # Get ALL products without limits
+        products = db.query(Product).all()
+        print(f"✅ Found {len(products)} total products in database")
+
+        # Manual serialization
+        result = []
+        for product in products:
+            result.append({
+                "id": product.id,
+                "name": product.name,
+                "description": product.description,
+                "price": float(product.price) if product.price else 0.0,
+                "category": product.category,
+                "stock_quantity": product.stock_quantity,
+                "image_url": product.image_url,
+                "is_active": product.is_active,
+                "created_at": product.created_at.isoformat() if product.created_at else None,
+                "updated_at": product.updated_at.isoformat() if product.updated_at else None
+            })
+
+        print(f"✅ Returning {len(result)} products to frontend")
+        return result
+
+    except Exception as e:
+        print(f"❌ ERROR in products endpoint: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=500, detail=f"Internal server error: {str(e)}")
 
 
-@router.get("/{product_id}", response_model=Product)
+@router.get("/{product_id}")
 def get_product(product_id: int, db: Session = Depends(get_db)):
-    """Get a single product by ID"""
-    product = product_crud.get_product(db, product_id)
-    if not product:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return product
+    """Get a specific product"""
+    try:
+        product = db.query(Product).filter(Product.id == product_id).first()
+        if not product:
+            raise HTTPException(status_code=404, detail="Product not found")
 
-
-@router.post("/", response_model=Product)
-def create_product(product: ProductCreate, db: Session = Depends(get_db)):
-    """Create a new product"""
-    return product_crud.create_product(db, product)
-
-
-@router.put("/{product_id}", response_model=Product)
-def update_product(product_id: int, product_update: ProductUpdate, db: Session = Depends(get_db)):
-    """Update a product"""
-    product = product_crud.get_product(db, product_id)
-    if not product:
-        raise HTTPException(status_code=404, detail="Product not found.")
-    return product_crud.update_product(db, product, product_update)
-
-
-@router.delete("/{product_id}")
-def delete_product(product_id: int, db: Session = Depends(get_db)):
-    """Delete a product (soft delete)"""
-    product = product_crud.get_product(db, product_id)
-    if not product:
-        raise HTTPException(status_code=404, detail="Product not found")
-    product_crud.soft_delete(db, product_id)
-    return {"message": "Product deleted successfully."}
+        return {
+            "id": product.id,
+            "name": product.name,
+            "description": product.description,
+            "price": float(product.price) if product.price else 0.0,
+            "category": product.category,
+            "stock_quantity": product.stock_quantity,
+            "image_url": product.image_url
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/categories/")
 def get_categories(db: Session = Depends(get_db)):
-    """Get all available product categories"""
-    categories = product_crud.get_categories(db)
-    return {"categories": categories}
+    """Get all categories"""
+    try:
+        from sqlalchemy import distinct
+
+        categories = db.query(distinct(Product.category)).all()
+        return {"categories": [cat[0] for cat in categories if cat[0]]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

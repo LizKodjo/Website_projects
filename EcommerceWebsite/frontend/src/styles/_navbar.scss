@@ -1,0 +1,84 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: v.$navyBlue;
+    color: v.$white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+}
+
+.nav-brand a {
+    color: v.$white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-center {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 2rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-right: 1rem;
+
+    a {
+        color: v.$white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        white-space: nowrap;
+
+        &:hover {
+            background-color: v.$lightNavyBlue;
+        }
+    }
+}
+
+.cart-link {
+    color: v.$white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background-color: v.$error;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+
+    &:hover {
+        background-color: v.$deepError;
+    }
+}
+
+//  Responsive design
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem
+    }
+
+    .nav-center {
+        order: 3;
+        width: 100%;
+        max-width: none;
+        margin: 0.5rem 0 0 0;
+    }
+
+    .nav-links {
+        order: 2;
+        margin-right: 0;
+    }
+
+    .nav-actions {
+        order: 1;
+    }
+}

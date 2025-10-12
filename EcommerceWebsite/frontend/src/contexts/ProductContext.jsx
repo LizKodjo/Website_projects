@@ -1,7 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useState, useContext } from "react";
 import { productService } from "../services/api";
 
-const ProductContext = createContext();
+// Create and export the context
+export const ProductContext = createContext();
 
 export const useProduct = () => {
   const context = useContext(ProductContext);
@@ -20,13 +21,12 @@ export const ProductProvider = ({ children }) => {
   const fetchProducts = async (category = null, filters = {}) => {
     setLoading(true);
     setError(null);
-
     try {
       const response = await productService.getProducts(category, filters);
       setProducts(response.data);
     } catch (err) {
       setError("Failed to fetch products");
-      console.error("Error fetching products: ", err);
+      console.error("Error fetching products:", err);
     } finally {
       setLoading(false);
     }
@@ -37,7 +37,7 @@ export const ProductProvider = ({ children }) => {
       const response = await productService.getCategories();
       setCategories(response.data.categories);
     } catch (err) {
-      console.error("Error fetching categories: ", err);
+      console.error("Error fetching categories:", err);
     }
   };
 
@@ -46,7 +46,7 @@ export const ProductProvider = ({ children }) => {
       const response = await productService.getProduct(id);
       return response.data;
     } catch (err) {
-      console.error("Error fetching product: ", err);
+      console.error("Error fetching product:", err);
       throw err;
     }
   };
@@ -62,10 +62,6 @@ export const ProductProvider = ({ children }) => {
   };
 
   return (
-    <>
-      <ProductContext.Provider value={value}>
-        {children}
-      </ProductContext.Provider>
-    </>
+    <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
   );
 };

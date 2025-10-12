@@ -1,0 +1,19 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+
+
+body {
+    font-family: v.$fontFamily ;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: v.$primaryGray;
+}
+
+.App {
+    min-height: 100vh;
+}
+
+main {
+    min-height: calc(100vh - 80px);
+}

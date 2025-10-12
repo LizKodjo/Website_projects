@@ -1,0 +1,59 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+.search-bar {
+    margin: 0 1rem;
+}
+
+.search-input-container {
+    display: flex;
+    align-items: center;
+    background: v.$white;
+    border-radius: 25px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+
+    &:focus-within {
+        border-color: v.$secondaryBlue;
+    }
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background: transparent;
+}
+
+.search-button {
+    background: v.$secondaryBlue;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background: v.$lightGrayBlue;
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .search-bar {
+        margin: 0.5rem 0;
+        width: 100%;
+    }
+
+    .search-input-container {
+        width: 100%;
+    }
+}

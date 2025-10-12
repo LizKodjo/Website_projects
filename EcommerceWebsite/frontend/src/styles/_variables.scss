@@ -1,0 +1,40 @@
+$lightBlue: #007bff;
+$ashGray: #6c757d;
+$darkGray: #333;
+$darkBlue: #0056b3;
+$lightPink: #f8d7da;
+$berryRed: #721c24;
+$darkWhite: #ddd;
+$navyBlue: #2c3e50;
+$white: #fff;
+$lightNavyBlue: #34495e;
+$error: #e74c3c;
+$deepError: #c0392b;
+$gray: #ddd;
+$metallicGray: #7f8c8d;
+$secondaryBlue: #3498db;
+$lightGrayBlue: #2980b9;
+$baiseWhite: #ecf0f1;
+$metallic: #bdc3c7;
+$frost: #d5dbdb;
+$primaryGreen: #27ae60;
+$deepGreen: #229954;
+$primaryGray: #faf9fa;
+$silk: #f3f3f3;
+$mint: #d5f4e6;
+$darkPink: #fadbd8;
+$stone: #555;
+$lighterGray: #f8f9fa;
+$ice: #e9ecef;
+$deepPurple: #667eea;
+$purple: #764ba2;
+
+// Font
+$fontFamily: -apple-system, BlinkMacSystem, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fire Sans', 'Droid Sans', 'Helvetica Neue';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    // min-height: 100vh;
+}

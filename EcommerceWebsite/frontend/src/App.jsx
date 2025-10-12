@@ -1,30 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ProductProvider } from "./contexts/ProductContext";
-// import Navbar from "./components/Navbar";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { CartProvider } from "./contexts/CartContext";
+import Navbar from "./components/Layout/Navbar";
 import ProductList from "./components/Products/ProductList";
-// import Cart from "./components/Cart";
-// import ProductDetail from "./components/ProductDetail";
-// import "./App.css";
+import ProductDetail from "./components/Products/ProductDetail";
+import Cart from "./components/Layout/Cart";
 
 function App() {
   return (
-    <>
-      <ProductProvider>
-        <Router>
-          <div className="App">
-            {/* <Navbar /> */}
-            <main>
-              <Routes>
-                <Route path="/" element={<ProductList />} />
-                {/* <Route path="/product/:id" element={<ProductDetail />} /> */}
-                {/* <Route path="/cart" element={<Cart />} /> */}
-                <Route path="/category/:category" element={<ProductList />} />
-              </Routes>
-            </main>
-          </div>
-        </Router>
-      </ProductProvider>
-    </>
+    // <>
+    <CartProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <main>
+            <Routes>
+              <Route path="/" element={<ProductList />} />
+              <Route path="/category/category" element={<ProductList />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/cart" element={<Cart />} />
+            </Routes>
+          </main>
+        </div>
+      </Router>
+    </CartProvider>
+    // </>
   );
 }
 
