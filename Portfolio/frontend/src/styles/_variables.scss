@@ -1,0 +1,58 @@
+// Color Palette - Dark theme with reddish gold
+$bg-primary: #0a0a0a;
+$bg-secondary: #1a1a1a;
+$bg-tertiary: #2a2a2a;
+
+$text-primary: #ffffff;
+$text-secondary: #b3b3b3;
+$text-accent: #d4af37; // Gold
+$text-accent-hover: #ffd700; // Brighter gold
+$accent-red: #b30000; // Reddish tone
+$accent-red-hover: #ff0000;
+
+$border-color: #333333;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+// Typography
+$font-primary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-mono: 'Fira Code', 'Courier New', monospace;
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 2rem;
+$spacing-lg: 3rem;
+$spacing-xl: 4rem;
+
+// Breakpoints
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+$breakpoint-desktop: 1200px;
+
+// Mixins
+@mixin gradient-text {
+    background: linear-gradient(135deg, $text-accent, $accent-red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+@mixin card-hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow, 0 8px 25px rgba(212, 175, 55, 0.1);
+    border-color: $text-accent;
+}
+
+@mixin gold-glow {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+@mixin red-glow {
+    box-shadow: 0 0 20px rgba(179, 0, 0, 0.3);
+}
+
+@mixin sophisticated-border {
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(179, 0, 0, 0.1));
+    backdrop-filter: blur(10px);
+}
