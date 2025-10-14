@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">URL Statistics</h3>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Original URL:</dt>
+                    <dd class="col-sm-9"><a href="{{url.original_url}}" target="_blank">{{url.original_url}}</a></dd>
+
+                    <dt class="col-sm-3">Short URL:</dt>
+                    <dd class="col-sm-9"><a href="{{request.host_url + url.short_code}}"
+                            target="_blank">{{request.host_url + url.short_code}}</a></dd>
+
+                    <dt class="col-sm-3">Short Code:</dt>
+                    <dd class="col-sm-9">{{url.short_code}}</dd>
+
+                    <dt class="col-sm-3">Created:</dt>
+                    <dd class="col-sm-9">{{url.created_at.strftime('%Y-%m-%d %H:%M:%S')}}</dd>
+
+                    <dt class="col-sm-3">Total Clicks:</dt>
+                    <div class="col-sm-9"><span class="badge bg-primary">{{url.clicks}}</span></div>
+
+                    {% if url.last_accessed %}
+                    <dt class="col-sm-3">Last Accessed:</dt>
+                    <dd class="col-sm-9">{{url.last_accessed.strftime('%Y-%m-%d %H:%M:%S')}}</dd>
+                    {% endif %}
+                </dl>
+
+                <div class="text-center">
+                    <a href="{{url_for('index')}}" class="btn btn-primary">Shorten Another URL</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

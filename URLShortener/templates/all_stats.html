@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">All Shortened URLs</h3>
+            </div>
+            <div class="card-body">
+                {% if urls %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Short URL</th>
+                                <th>Original URL</th>
+                                <th>Clicks</th>
+                                <th>Created</th>
+                                <th>Last Accessed</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for url in urls %}
+                            <tr>
+                                <td>
+                                    <a href="{{request.host_url + url.short_code}}"
+                                        target="_blank">{{url.short_code}}</a>
+                                </td>
+                                <td class="text-truncate" style="max-width: 200px;">{{url.original_url}}</td>
+                                <td><span class="badge bg-primary">{{url.clicks}}</span></td>
+                                <td>{{url.created_at.strftime('%Y-%m-%d')}}</td>
+                                <td>
+                                    {% if url.last_accessed %}
+                                    {{url.last_accessed.strftime('%Y-%m-%d %H:%M')}}
+                                    {% else %}
+                                    Never
+                                    {% endif %}
+                                </td>
+                                <td><a href="{{url_for('url_stats', short_code=url.short_code)}}"
+                                        class="btn btn-sm btn-info">Stats</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-center">No URLs have been shortened yet.</p>
+                {% endif %}
+
+                <div class="text-center mt-3">
+                    <a href="{{url_for('index')}}" class="btn btn-primary">Shorten New URL</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
