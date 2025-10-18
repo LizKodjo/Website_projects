@@ -10,16 +10,16 @@ export const api = axios.create({
   timeout: 10000,
 });
 
+
 export const transactionAPI = {
   create: (transaction: any, userId: number) =>
-    api.post("/transactions/", {
-      transaction: transaction, // Wrap in 'transaction' object
-      user_id: userId, // Include user_id in body
+    api.post('/transactions/', {
+      transaction: transaction,
+      user_id: userId
     }),
-  getAll: (userId: number) =>
-    api.get("/transactions/", {
-      params: { user_id: userId },
-    }),
+  getAll: (userId: number) => api.get('/transactions/', { 
+    params: { user_id: userId }
+  }),
 };
 
 export const budgetAPI = {
