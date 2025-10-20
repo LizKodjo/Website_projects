@@ -5,9 +5,10 @@ import { budgetAPI, transactionAPI } from "../utils/api";
 import TransactionForm from "../components/Transaction/TransactionForm";
 import TransactionList from "../components/Transaction/TransactionList";
 import BudgetOverview from "../components/Budget/BudgetOverview";
+import SpendingChart from "../components/Budget/SpendingChart";
 
 const Dashboard: FC = () => {
-    const { user, logout } = useAuth();
+  const { user, logout } = useAuth();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,8 +24,8 @@ const Dashboard: FC = () => {
       await Promise.all([fetchTransactions(), fetchBudgets()]);
       setError(null);
     } catch (err) {
-      console.error('Error loading user data:', err);
-      setError('Failed to load your data. Please try again.');
+      console.error("Error loading user data:", err);
+      setError("Failed to load your data. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -35,7 +36,7 @@ const Dashboard: FC = () => {
       const response = await transactionAPI.getAll(user!.id);
       setTransactions(response.data);
     } catch (error) {
-      console.error('Error fetching transactions:', error);
+      console.error("Error fetching transactions:", error);
     }
   };
 
@@ -44,7 +45,7 @@ const Dashboard: FC = () => {
       const response = await budgetAPI.getAll(user!.id);
       setBudgets(response.data);
     } catch (error) {
-      console.error('Error fetching budgets:', error);
+      console.error("Error fetching budgets:", error);
     }
   };
 
@@ -53,8 +54,12 @@ const Dashboard: FC = () => {
       await transactionAPI.create(transactionData, user!.id);
       await fetchTransactions();
     } catch (error: any) {
-      console.error('Error adding transaction:', error);
-      setError(`Failed to add transaction: ${error.response?.data?.detail || error.message}`);
+      console.error("Error adding transaction:", error);
+      setError(
+        `Failed to add transaction: ${
+          error.response?.data?.detail || error.message
+        }`
+      );
     }
   };
 
@@ -63,8 +68,10 @@ const Dashboard: FC = () => {
       await budgetAPI.create(budgetData, user!.id);
       await fetchBudgets();
     } catch (error: any) {
-      console.error('Error adding budget:', error);
-      setError(`Failed to add budget: ${error.response?.data?.detail || error.message}`);
+      console.error("Error adding budget:", error);
+      setError(
+        `Failed to add budget: ${error.response?.data?.detail || error.message}`
+      );
     }
   };
 
@@ -73,8 +80,12 @@ const Dashboard: FC = () => {
   };
 
   // Calculate financial summary
-  const totalIncome = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
-  const totalExpenses = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+  const totalIncome = transactions
+    .filter((t) => t.type === "income")
+    .reduce((sum, t) => sum + t.amount, 0);
+  const totalExpenses = transactions
+    .filter((t) => t.type === "expense")
+    .reduce((sum, t) => sum + t.amount, 0);
   const netBalance = totalIncome - totalExpenses;
 
   if (loading) {
@@ -95,8 +106,12 @@ const Dashboard: FC = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">💰 BudgetTracker</h1>
-              <p className="text-gray-600 text-sm">Welcome back, {user?.full_name}!</p>
+              <h1 className="text-2xl font-bold text-gray-800">
+                💰 BudgetTracker
+              </h1>
+              <p className="text-gray-600 text-sm">
+                Welcome back, {user?.full_name}!
+              </p>
             </div>
             <div className="flex items-center space-x-4">
               <div className="text-right">
@@ -117,14 +132,14 @@ const Dashboard: FC = () => {
       {/* Rest of your existing dashboard content from the previous App.tsx */}
       {/* Copy the main content from your working App.tsx here */}
       {/* Financial Summary Cards, TransactionForm, BudgetOverview, etc. */}
-      
+
       <div className="container mx-auto px-4 py-8">
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
             <div className="flex items-center">
               <span className="text-red-500 mr-2">⚠</span>
               <span>{error}</span>
-              <button 
+              <button
                 onClick={loadUserData}
                 className="ml-auto bg-red-100 hover:bg-red-200 text-red-800 px-3 py-1 rounded text-sm"
               >
@@ -143,7 +158,9 @@ const Dashboard: FC = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-600">Total Income</p>
-                <p className="text-2xl font-bold text-green-600">${totalIncome.toFixed(2)}</p>
+                <p className="text-2xl font-bold text-green-600">
+                  ${totalIncome.toFixed(2)}
+                </p>
               </div>
             </div>
           </div>
@@ -155,7 +172,9 @@ const Dashboard: FC = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-600">Total Expenses</p>
-                <p className="text-2xl font-bold text-red-600">${totalExpenses.toFixed(2)}</p>
+                <p className="text-2xl font-bold text-red-600">
+                  ${totalExpenses.toFixed(2)}
+                </p>
               </div>
             </div>
           </div>
@@ -167,9 +186,11 @@ const Dashboard: FC = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-600">Net Balance</p>
-                <p className={`text-2xl font-bold ${
-                  netBalance >= 0 ? 'text-green-600' : 'text-red-600'
-                }`}>
+                <p
+                  className={`text-2xl font-bold ${
+                    netBalance >= 0 ? "text-green-600" : "text-red-600"
+                  }`}
+                >
                   ${netBalance.toFixed(2)}
                 </p>
               </div>
@@ -182,22 +203,27 @@ const Dashboard: FC = () => {
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
             <TransactionForm onSubmit={handleAddTransaction} />
-            
+
             {/* Quick Budget Form */}
             <div className="bg-white p-6 rounded-xl shadow-sm border">
               <h2 className="text-xl font-bold mb-4">Set Budget</h2>
-              <form onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-                handleAddBudget({
-                  category: formData.get('category'),
-                  amount: parseFloat(formData.get('amount') as string),
-                  period: formData.get('period')
-                });
-                e.currentTarget.reset();
-              }} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.currentTarget);
+                  handleAddBudget({
+                    category: formData.get("category"),
+                    amount: parseFloat(formData.get("amount") as string),
+                    period: formData.get("period"),
+                  });
+                  e.currentTarget.reset();
+                }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-4"
+              >
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Category</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Category
+                  </label>
                   <input
                     name="category"
                     type="text"
@@ -207,7 +233,9 @@ const Dashboard: FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Amount</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Amount
+                  </label>
                   <input
                     name="amount"
                     type="number"
@@ -218,7 +246,9 @@ const Dashboard: FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Period</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Period
+                  </label>
                   <select
                     name="period"
                     required
@@ -246,23 +276,32 @@ const Dashboard: FC = () => {
           {/* Right Column */}
           <div className="space-y-8">
             <BudgetOverview budgets={budgets} transactions={transactions} />
-            
+            {/* Spending Charts */}
+            <SpendingChart transactions={transactions} />
+
             {/* Quick Stats */}
             <div className="bg-white p-6 rounded-xl shadow-sm border">
               <h2 className="text-xl font-bold mb-4">📊 Quick Stats</h2>
               <div className="space-y-4">
                 <div>
                   <p className="text-sm text-gray-600">Total Transactions</p>
-                  <p className="text-2xl font-bold text-gray-800">{transactions.length}</p>
+                  <p className="text-2xl font-bold text-gray-800">
+                    {transactions.length}
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Active Budgets</p>
-                  <p className="text-2xl font-bold text-gray-800">{budgets.length}</p>
+                  <p className="text-2xl font-bold text-gray-800">
+                    {budgets.length}
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Savings Rate</p>
                   <p className="text-2xl font-bold text-green-600">
-                    {totalIncome > 0 ? ((netBalance / totalIncome) * 100).toFixed(1) : '0'}%
+                    {totalIncome > 0
+                      ? ((netBalance / totalIncome) * 100).toFixed(1)
+                      : "0"}
+                    %
                   </p>
                 </div>
               </div>
@@ -274,4 +313,4 @@ const Dashboard: FC = () => {
   );
 };
 
-export default Dashboard
+export default Dashboard;
