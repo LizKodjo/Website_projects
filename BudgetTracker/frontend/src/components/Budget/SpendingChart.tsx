@@ -136,35 +136,35 @@ const SpendingChart: FC<SpendingChartProps> = ({ transactions }) => {
       <div className="bg-white p-6 rounded-xl shadow-sm border">
         <h2 className="text-xl font-bold mb-4">📊 Speding Analytics</h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
           {/* Category spending doughnut chart */}
-          <div>
+          <div className="h-64 sm:h-80">
             <Doughnut data={doughnutData} options={doughnutOptions} />
           </div>
 
           {/* Monthly Spending Bar charg */}
-          <div>
+          <div className="h-64 sm:h-80">
             <Bar data={barData} options={barOptions} />
           </div>
         </div>
 
         {/* Spending Summary */}
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-3 bg-blue-50 rounded-lg">
-            <p className="text-sm text-gray-600">Total Categories</p>
-            <p className="text-lg font-bold text-blue-600">
+        <div className="mt-4 sm:mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+          <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
+            <p className="text-xs sm:text-sm text-gray-600">Total Categories</p>
+            <p className="text-sm sm:text-lg font-bold text-blue-600">
               {Object.keys(categorySpending).length}
             </p>
           </div>
-          <div className="text-center p-3 bg-red-50 rounded-lg">
-            <p className="text-sm text-gray-600">Total Spending</p>
-            <p className="text-lg font-bold text-red-600">
+          <div className="text-center p-2 sm:p-3 bg-red-50 rounded-lg">
+            <p className="text-xs sm:text-sm text-gray-600">Total Spending</p>
+            <p className="text-sm sm:text-lg font-bold text-red-600">
               {Object.keys(categorySpending).length}
             </p>
           </div>
-          <div className="text-center p-3 bg-red-50 rounded-lg">
-            <p className="text-sm text-gray-600">Total Spending</p>
-            <p className="text-lg font-bold text-red-600">
+          <div className="text-center p-2 sm:p-3 bg-red-50 rounded-lg">
+            <p className="text-xs sm:text-sm text-gray-600">Total Spending</p>
+            <p className="text-sm sm:text-lg font-bold text-red-600">
               £
               {Object.values(categorySpending)
                 .reduce((a, b) => a + b, 0)
@@ -172,9 +172,9 @@ const SpendingChart: FC<SpendingChartProps> = ({ transactions }) => {
             </p>
           </div>
 
-          <div className="text-center p-3 bg-green-50 rounded-lg">
-            <p className="text-sm text-gray-600">Largest Category</p>
-            <p className="text-lg font-bold text-green-600">
+          <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
+            <p className="text-xs sm:text-sm text-gray-600">Largest Category</p>
+            <p className="text-sm sm:text-lg font-bold text-green-600">
               {Object.keys(categorySpending).length > 0
                 ? Object.entries(categorySpending).sort(
                     (a, b) => b[1] - a[1]
@@ -182,9 +182,11 @@ const SpendingChart: FC<SpendingChartProps> = ({ transactions }) => {
                 : "N/A"}
             </p>
           </div>
-          <div className="text-center p-3 bg-purple-50 rounded-lg">
-            <p className="text-sm text-gray-600">Avg. per Category</p>
-            <p className="text-lg font-bold text-purple-600">
+          <div className="text-center p-2 sm:p-3 bg-purple-50 rounded-lg">
+            <p className="text-xs sm:text-sm text-gray-600">
+              Avg. per Category
+            </p>
+            <p className="text-sm sm:text-lg font-bold text-purple-600">
               £
               {Object.keys(categorySpending).length > 0
                 ? (

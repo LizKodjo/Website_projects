@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, Body, Query, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 from typing import List
 import uvicorn
@@ -22,16 +23,24 @@ app = FastAPI(
 )
 
 # Enhanced CORS configuration
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
+from config import settings
+
+# Update CORS for production
+if settings.environment == "development":
+    origins = [
         "http://localhost:3000",
         "http://localhost:5173",
         "http://127.0.0.1:3000",
         "http://127.0.0.1:5173",
-        "http://localhost:8001",
-        "http://127.0.0.1:8001",
-    ],
+    ]
+else:
+    origins = [
+        "https://yourdomain.com",  # Your production domain
+    ]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -48,6 +57,19 @@ async def add_cors_headers(request, call_next):
     response.headers["Access-Control-Allow-Headers"] = "*"
     return response
 
+
+@app.on_event('startup')
+async def startup_event():
+    # Test database connection
+    try: 
+        with engine.connect as conn:
+            conn.execute(text('SELECT'))
+            print("✅ Database connection verified on startup")
+    except Exception as e:
+        print(f"❌ Database connection failed on startup: {e}")
+        # In production exit
+        # import sys
+        # sys.exit(1)
 
 @app.options("/{rest_of_path:path}")
 async def preflight_handler(request, rest_of_path: str):
