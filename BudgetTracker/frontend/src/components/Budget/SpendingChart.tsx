@@ -123,7 +123,7 @@ const SpendingChart: FC<SpendingChartProps> = ({ transactions }) => {
     return (
       <div className="bg-white p-6 rounded-xl shadow-sm border">
         <h2 className="text-xl font-bold mb-4">📊 Spending Analytics</h2>
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
           <p>No spending data yet.</p>
           <p className="text-sm">Add some expenses to see charts here!</p>
         </div>
@@ -133,7 +133,7 @@ const SpendingChart: FC<SpendingChartProps> = ({ transactions }) => {
 
   return (
     <>
-      <div className="bg-white p-6 rounded-xl shadow-sm border">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border dark:border-gray-600">
         <h2 className="text-xl font-bold mb-4">📊 Speding Analytics</h2>
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">

@@ -83,7 +83,10 @@ const TransactionForm: FC<TransactionFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700"
+    >
       <h2 className="text-xl font-bold mb-4">Add Transaction</h2>
 
       {/* Error Summary */}
@@ -114,7 +117,7 @@ const TransactionForm: FC<TransactionFormProps> = ({ onSubmit }) => {
               setFormData({ ...formData, amount: e.target.value })
             }
             onBlur={() => handleBlur("amount")}
-            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 £{
+            className={`mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400 £{
               touched.amount && errors.some((e) => e.includes("Amount"))
                 ? "border-red-300"
                 : ""
@@ -154,7 +157,7 @@ const TransactionForm: FC<TransactionFormProps> = ({ onSubmit }) => {
               setFormData({ ...formData, description: e.target.value })
             }
             onBlur={() => handleBlur("description")}
-            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 £{
+            className={`mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400 £{
               touched.description &&
               errors.some((e) => e.includes("Description"))
                 ? "border-red-300"
@@ -174,7 +177,7 @@ const TransactionForm: FC<TransactionFormProps> = ({ onSubmit }) => {
               setFormData({ ...formData, category: e.target.value })
             }
             onBlur={() => handleBlur("category")}
-            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 £{
+            className={`mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 £{
               touched.category && errors.some((e) => e.includes("Category"))
                 ? "border-red-300"
                 : ""
@@ -193,7 +196,7 @@ const TransactionForm: FC<TransactionFormProps> = ({ onSubmit }) => {
 
       {/* Category Preview */}
       {formData.category && (
-        <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+        <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
           <p className="text-sm text-gray-600">Selected Category:</p>
           <div className="flex items-center mt-1">
             <span className="text-lg mr-2">

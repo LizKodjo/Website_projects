@@ -15,7 +15,7 @@ const BudgetOverview: FC<BudgetOverviewProps> = ({ budgets, transactions }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border dark:border-gray-600">
       <h2 className="text-xl font-bold mb-4">Budget Overview</h2>
 
       <div className="space-y-4">
@@ -25,7 +25,10 @@ const BudgetOverview: FC<BudgetOverviewProps> = ({ budgets, transactions }) => {
           const percentage = (spent / budget.amount) * 100;
 
           return (
-            <div key={budget.id} className="border rounded-lg p-4 relative">
+            <div
+              key={budget.id}
+              className="border dark:border-gray-700 rounded-lg p-4 relative"
+            >
               {/* Alert badge for exceeded budgets */}
               {percentage >= 100 && (
                 <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
@@ -58,7 +61,7 @@ const BudgetOverview: FC<BudgetOverviewProps> = ({ budgets, transactions }) => {
                 </span>
               </div>
 
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className={`h-2 rounded-full ${
                     percentage > 90
