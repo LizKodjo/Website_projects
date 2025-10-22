@@ -24,11 +24,11 @@ export const authService = {
   },
 
   logout: () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
   },
 
   getCurrentUser: async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access_token");
     if (!token) return null;
 
     try {

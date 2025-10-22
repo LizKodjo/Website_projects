@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 
-export default function Register({ onToggleMode }) {
+export default function Register({ onToggleMode, onSuccess }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -38,7 +38,9 @@ export default function Register({ onToggleMode }) {
       name: formData.name,
     });
 
-    if (!result.success) {
+    if (result.success) {
+      onSuccess()
+    } else {
       setError(result.error);
     }
     setLoading(false);
@@ -48,6 +50,8 @@ export default function Register({ onToggleMode }) {
     <>
       <div className="auth-form">
         <h2>Create Your Account</h2>
+        <p className="auth-subtitle">Join us today</p>
+
         {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
@@ -59,6 +63,7 @@ export default function Register({ onToggleMode }) {
               value={formData.name}
               onChange={handleChange}
               required
+              placeholder="Enter your full name"
             />
           </div>
           <div className="form-group">
@@ -69,6 +74,7 @@ export default function Register({ onToggleMode }) {
               value={formData.email}
               onChange={handleChange}
               required
+              placeholder="Enter your email"
             />
           </div>
 
@@ -80,6 +86,7 @@ export default function Register({ onToggleMode }) {
               value={formData.password}
               onChange={handleChange}
               required
+              placeholder="Create a password"
             />
           </div>
 
@@ -91,18 +98,19 @@ export default function Register({ onToggleMode }) {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
+              placeholder="Confirm your password"
             />
           </div>
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Creating Account..." : "Sign Up"}
+          <button type="submit" disabled={loading} className="auth-button">
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 
-        <p className="toggle-mode">
+        <p className="auth-toggle">
           Already have an account?
-          <button className="link-button" onClick={onToggleMode}>
-            Login here
+          <button type="button" className="auth-toggle-button" onClick={onToggleMode}>
+            Sign in here
           </button>
         </p>
       </div>

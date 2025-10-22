@@ -37,11 +37,13 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
 
 @router.post("/register", response_model=User)
 def register(user_data: UserRegister, db: Session = Depends(get_db)):
+    """Register n new user"""
     return user_crud.create(db, obj_in=user_data)
 
 
 @router.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    """Login user and return access token"""
     user = user_crud.authenticate(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -61,4 +63,10 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 
 @router.get("/me", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_user)):
+    """Get current user information"""
     return current_user
+
+@router.post('/logout')
+async def logout():
+    """Logout user (client should remove token)"""
+    return {"message": "Successfully logged out"}

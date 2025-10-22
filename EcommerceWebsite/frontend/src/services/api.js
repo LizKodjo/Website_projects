@@ -1,4 +1,5 @@
 import axios from "axios";
+import { authService } from "./auth";
 
 const API_BASE_URL = "http://localhost:8000/api/v1";
 
@@ -8,6 +9,17 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+// Auth token to request automaticallly
+api.interceptors.request.use(config => {
+  const token = authService.getToken()
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+}, error => {
+  return Promise.reject(error)
+})
 
 export const productService = {
   getProducts: (category = null, filters = {}) => {
@@ -23,8 +35,8 @@ export const productService = {
     return api.get("/products/categories/");
   },
 
-  createProduct: (productData) => {
-    return api.post("/products/", productData);
-  },
+  // createProduct: (productData) => {
+  //   return api.post("/products/", productData);
+  // },
 };
 export default api;

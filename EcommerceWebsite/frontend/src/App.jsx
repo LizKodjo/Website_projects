@@ -4,25 +4,30 @@ import Navbar from "./components/Layout/Navbar";
 import ProductList from "./components/Products/ProductList";
 import ProductDetail from "./components/Products/ProductDetail";
 import Cart from "./components/Layout/Cart";
+import { AuthProvider } from "./contexts/AuthContext";
+import AuthForm from "./components/Login/AuthForm"
 
 function App() {
   return (
     // <>
-    <CartProvider>
+    <AuthProvider>
+      <CartProvider>
       <Router>
         <div className="App">
           <Navbar />
           <main>
             <Routes>
               <Route path="/" element={<ProductList />} />
-              <Route path="/category/category" element={<ProductList />} />
+              <Route path="/category/:category" element={<ProductList />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<AuthForm />} />
             </Routes>
           </main>
         </div>
       </Router>
     </CartProvider>
+    </AuthProvider>
     // </>
   );
 }

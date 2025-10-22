@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 
-export default function Login({ onToggleMode }) {
+export default function Login({ onToggleMode, onSuccess }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,8 +18,10 @@ export default function Login({ onToggleMode }) {
 
     const result = await login(formData.email, formData.password);
 
-    if (!result.success) {
-      setError(result.error);
+    if (result.success) {
+      onSuccess()
+    }else {
+      setError(result.error)
     }
     setLoading(false);
   };
@@ -27,7 +29,9 @@ export default function Login({ onToggleMode }) {
   return (
     <>
       <div className="auth-form">
-        <h2>Login to your Account</h2>
+        <h2>Welcome Back</h2>
+        <p className="auth-subtitle">Sign in to your account</p>
+
         {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
@@ -39,6 +43,7 @@ export default function Login({ onToggleMode }) {
               value={formData.email}
               onChange={handleChange}
               required
+              placeholder="Enter your email"
             />
           </div>
           <div className="form-group">
@@ -49,15 +54,16 @@ export default function Login({ onToggleMode }) {
               value={formData.password}
               onChange={handleChange}
               required
+              placeholder="Enter your password"
             />
           </div>
-          <button type="submit" disabled={loading}>
-            {loading ? "Logging in.." : "Login"}
+          <button type="submit" disabled={loading} className="auth-button">
+            {loading ? "Signing in.." : "Sign In"}
           </button>
         </form>
-        <p className="toggle-mode">
+        <p className="auth-toggle">
           Don't have an account?
-          <button onClick={onToggleMode} className="link-button">
+          <button type="button" onClick={onToggleMode} className="auth-toggle-button">
             Sign up here
           </button>
         </p>

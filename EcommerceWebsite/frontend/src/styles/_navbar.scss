@@ -58,6 +58,54 @@
     }
 }
 
+.user-menu{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-right: 1rem;
+}
+
+.user-greeting {
+    color: v.$white;
+    font-size: 0.9rem;
+}
+
+.logout-btn {
+    background: v.$error;
+    color: v.$white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background: v.$deepError;
+    }
+}
+
+.login-btn {
+    color: v.$white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background-color: v.$primaryGreen;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin-right: 1rem;
+
+    &:hover {
+        background-color: v.$deepGreen;
+        color: v.$white;
+    }
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 //  Responsive design
 @media (max-width: 768px) {
     .navbar {
