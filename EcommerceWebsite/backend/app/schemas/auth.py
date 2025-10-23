@@ -18,4 +18,4 @@ class UserLogin(BaseModel):
 class UserRegister(BaseModel):
     email: EmailStr
     password: str
-    name: str
+    full_name: str

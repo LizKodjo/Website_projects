@@ -1,14 +1,12 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from app.crud.base import CRUDBase
 from app.models.user import User
 from app.schemas.user import UserCreate
 from app.core.security import get_password_hash, verify_password
 
-
-class CRUDUser(CRUDBase[User, UserCreate, UserCreate]):
+class CRUDUser:
     def get_by_email(self, db: Session, email: str):
-        return db.query(self.model).filter(self.model.email == email).first()
+        return db.query(User).filter(User.email == email).first()
 
     def authenticate(self, db: Session, email: str, password: str):
         user = self.get_by_email(db, email)
@@ -18,7 +16,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserCreate]):
             return False
         return user
 
-    def create(self, db: Session, *, obj_in: UserCreate):
+    def create(self, db: Session, obj_in: UserCreate):
         # Check if user already exists
         db_user = self.get_by_email(db, email=obj_in.email)
         if db_user:
@@ -40,6 +38,8 @@ class CRUDUser(CRUDBase[User, UserCreate, UserCreate]):
         db.refresh(db_user)
         return db_user
 
+    def get(self, db: Session, id: int):
+        return db.query(User).filter(User.id == id).first()
 
-# Create instance
-user = CRUDUser(User)
+# Create instance - THIS IS CRITICAL
+user = CRUDUser()
