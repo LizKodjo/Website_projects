@@ -1,63 +1,54 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.api.v1.api import api_router
-from app.core.config import settings, PROJECT_NAME, VERSION, API_V1_STR
-import time
+from app.core.config import PROJECT_NAME, VERSION, API_V1_STR
 
-app = FastAPI(title=PROJECT_NAME, version=VERSION)
-
-# Add debug middleware to see all requests
-@app.middleware("http")
-async def add_cors_debug_headers(request: Request, call_next):
-    start_time = time.time()
-    response = await call_next(request)
-    
-    # Add debug headers to see what's happening
-    response.headers["X-Backend-Server"] = "FastAPI"
-    response.headers["X-Request-Path"] = request.url.path
-    response.headers["X-Request-Method"] = request.method
-    response.headers["X-Response-Time"] = str(time.time() - start_time)
-    
-    print(f"🔧 {request.method} {request.url.path} - Headers: {dict(request.headers)}")
-    
-    return response
-
-# Comprehensive CORS middleware - MOVE THIS AFTER debug middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allow ALL for debugging
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+app = FastAPI(
+    title=PROJECT_NAME,
+    version=VERSION,
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
+# CORS middleware - MOST PERMISSIVE SETTINGS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
+)
+
+# Include API router
 app.include_router(api_router, prefix=API_V1_STR)
 
 @app.get("/")
-def read_root():
+async def root():
     return {"message": f"{PROJECT_NAME} is running"}
 
 @app.get("/health")
-def health_check():
+async def health():
     return {"status": "healthy", "version": VERSION}
 
-@app.get("/test-cors")
-async def test_cors():
-    return {"message": "CORS is working!"}
-
-# Add explicit OPTIONS handler for auth register
-@app.options("/api/v1/auth/register")
-async def options_register():
+# Add explicit OPTIONS handler for all routes
+@app.options("/{full_path:path}")
+async def options_handler(full_path: str):
     return JSONResponse(
         content={"message": "CORS preflight"},
         headers={
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Headers": "*",
         }
     )
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+        log_level="debug"
+    )

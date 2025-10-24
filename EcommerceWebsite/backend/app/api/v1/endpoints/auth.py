@@ -3,10 +3,11 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from datetime import timedelta
 
+from app.crud import user
 from app.db.session import get_db
 from app.core.config import settings
 from app.core.jwt import create_access_token, verify_token
-from app.crud.user import user  # Import the instance, not the class
+from app.crud.user import get_user_by_email,authenticate_user, create_user
 from app.schemas.auth import Token, UserLogin, UserRegister
 from app.schemas.user import User
 
@@ -28,7 +29,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
     if email is None:
         raise credentials_exception
     
-    user_obj = user.get_by_email(db, email=email)  # Use user instance
+    user_obj = get_user_by_email(db, email=email)  # Use user instance
     if user_obj is None:
         raise credentials_exception
     return user_obj
@@ -36,12 +37,12 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
 @router.post("/register", response_model=User)
 def register(user_data: UserRegister, db: Session = Depends(get_db)):
     """Register a new user"""
-    return user.create(db, obj_in=user_data)  # Use user instance
+    return create_user(db, user_data)  
 
 @router.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     """Login user and return access token"""
-    user_obj = user.authenticate(db, form_data.username, form_data.password)  # Use user instance
+    user_obj = authenticate_user(db, form_data.username, form_data.password)  
     if not user_obj:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
