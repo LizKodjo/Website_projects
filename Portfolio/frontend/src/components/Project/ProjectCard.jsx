@@ -1,32 +1,59 @@
 export default function ProjectCard({ project }) {
-  const technologies =
-    typeof project.technologies === "string"
-      ? JSON.parse(project.technologies)
-      : project.technologies || [];
+  let technologies = [];
+
+  try {
+    technologies =
+      typeof project.technologies === "string"
+        ? JSON.parse(project.technologies)
+        : project.technologies || [];
+  } catch (e) {
+    console.error("Error parsing technologies: ", e);
+    technologies = [];
+  }
+
+  const getStatusBadge = (status) => {
+    const statusConfig = {
+      completed: { label: "✅ Live", class: "status-completed" },
+      "in-progress": { label: "🛠️ In Progress", class: "status-in-progress" },
+      planned: { label: "📝 Planned", class: "status-planned" },
+    };
+
+    const config = statusConfig[status] || statusConfig["completed"];
+    return (
+      <span className={`status-badge ${config.class}`}>{config.label}</span>
+    );
+  };
 
   return (
     <>
       <div className={`project-card ${project.featured ? "featured" : ""}`}>
         <div className="project-header">
           <h3 className="project-title">{project.title}</h3>
-          {project.featured && <span className="featured-badge">Featured</span>}
+          <div className="project-badges">
+            {project.featured && (
+              <span className="featured-badge">Featured</span>
+            )}
+            {getStatusBadge(project.status)}
+          </div>
         </div>
 
         <p className="project-description">{project.description}</p>
 
-        <div className="tech-tags">
-          {technologies.slice(0, 4).map((tech, index) => (
-            <span key={index} className="tech-tag">
-              {tech}
-            </span>
-          ))}
-          {technologies.length > 4 && (
-            <span className="tech-tag">+{technologies.length - 4} more</span>
-          )}
-        </div>
+        {technologies.length > 0 && (
+          <div className="tech-tags">
+            {technologies.slice(0, 4).map((tech, index) => (
+              <span key={index} className="tech-tag">
+                {tech}
+              </span>
+            ))}
+            {technologies.length > 4 && (
+              <span className="tech-tag">+{technologies.length - 4} more</span>
+            )}
+          </div>
+        )}
 
         <div className="project-links">
-          {project.github_url && (
+          {project.github_url && project.status !== "planned" && (
             <a
               href={project.github_url}
               target="_blank"
@@ -44,7 +71,8 @@ export default function ProjectCard({ project }) {
               GitHub
             </a>
           )}
-          {project.live_url && (
+
+          {project.live_url && project.status === "completed" && (
             <a
               href={project.live_url}
               target="_blank"
@@ -62,6 +90,10 @@ export default function ProjectCard({ project }) {
               </svg>
               Live Demo
             </a>
+          )}
+
+          {project.status === "planned" && (
+            <span className="project-link disabled">📆 Coming Soon</span>
           )}
         </div>
       </div>

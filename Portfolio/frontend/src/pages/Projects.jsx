@@ -3,40 +3,6 @@ import { projectsAPI, testConnection } from "../services/api";
 import ProjectCard from "../components/Project/ProjectCard";
 
 // Add this fallback data at the top of Projects.jsx
-const fallbackProjects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description: "Full-stack e-commerce solution with modern tech stack",
-    technologies: JSON.stringify([
-      "Python",
-      "FastAPI",
-      "React",
-      "PostgreSQL",
-      "Docker",
-    ]),
-    github_url: "https://github.com/ek/ecommerce-platform",
-    live_url: "https://ecommerce-demo.ek.com",
-    featured: true,
-    category: "web",
-  },
-  {
-    id: 2,
-    title: "Data Visualization Dashboard",
-    description: "Real-time analytics dashboard with interactive charts",
-    technologies: JSON.stringify([
-      "Python",
-      "FastAPI",
-      "D3.js",
-      "MongoDB",
-      "WebSockets",
-    ]),
-    github_url: "https://github.com/ek/data-dashboard",
-    live_url: "https://dashboard.ek.com",
-    featured: true,
-    category: "data-science",
-  },
-];
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -77,7 +43,7 @@ export default function Projects() {
     try {
       setLoading(true);
       const data = await projectsAPI.getAll();
-      console.log("Fetched projects:", data);
+      console.log("Fetched projects from database: ", data);
       setProjects(data);
       setFilteredProjects(data);
     } catch (err) {
@@ -85,8 +51,8 @@ export default function Projects() {
       setError(
         "Connected to server but using fallback data. Some features may be limited."
       );
-      setProjects(fallbackProjects);
-      setFilteredProjects(fallbackProjects);
+      // setProjects(fallbackProjects);
+      // setFilteredProjects(fallbackProjects);
     } finally {
       setLoading(false);
     }

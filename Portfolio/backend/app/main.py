@@ -1,11 +1,12 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from sqlmodel import Session, select, text
-from typing import List
+from typing import List, Optional
 import json
 import os
 
-from .models import Project, ProjectRead, engine, create_db_and_tables
+from .models import ContactMessage, ContactMessageCreate, Project, ProjectRead, engine, create_db_and_tables
 
 app = FastAPI(
     title="EK Portfolio API",
@@ -22,6 +23,28 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Model for API responses
+
+
+class ProjectResponse(BaseModel):
+    id: int
+    title: str
+    description: str
+    long_description: Optional[str] = None
+    technologies: str
+    github_url: Optional[str] = None
+    live_url: Optional[str] = None
+    image_url: Optional[str] = None
+    featured: bool
+    category: str
+    status: str
+    priority: int
+    created_at: str
+
+    class Config:
+        from_attributes = True
+
 
 # Dependency for database session
 
@@ -53,36 +76,55 @@ def seed_sample_data():
 
         sample_projects = [
             Project(
-                title="E-Commerce Platform",
-                description="Full-stack e-commerce solution with modern tech stack",
-                long_description="A complete e-commerce platform featuring user authentication, product management, shopping cart, payment integration, and admin dashboard. Built with microservices architecture and deployed using Docker.",
+                title="Developer Portfolio",
+                description="Full-stack portfolio website with modern dark theme",
+                long_description="A responsive portfolio website built with React, FastAPI, and SCSS. Features a custom dark theme with reddish-gold accents, project filtering, contact form, and full testing suite. Demonstrates full-stack development skills and modern web practices.",
                 technologies=json.dumps(
-                    ["Python", "FastAPI", "React", "PostgreSQL", "Docker", "Redis", "Stripe API"]),
-                github_url="https://github.com/ek/ecommerce-platform",
-                live_url="https://ecommerce-demo.ek.com",
+                    ["Python", "FastAPI", "React", "Vite", "SCSS", "SQLite", "SQLModel", "Testing"]),
+                github_url="https://github.com/LizKodjo/Website_projects/tree/main/Portfolio",
+                live_url="http://localhost:3000",
                 featured=True,
-                category="web"
+                category="web",
+                status="completed",
+                priority=1
+            ),
+            Project(
+                title="URL Shortener API",
+                description="High-performance URL shortener with analytics dashboard",
+                long_description="A scalable URL shortening service with click analytics, QR code generation, and API rate limiting. Features Redis caching for performance and a comprehensive admin dashboard.",
+                technologies=json.dumps(
+                    ["Python", "FastAPI", "Redis", "SQLite", "React", "Chart.js"]),
+                github_url="https://github.com/LizKodjo/Website_projects/tree/main/URLShortener",
+                live_url="https://short.ek.com",
+                featured=True,
+                category="api",
+                status="in-progress",
+                priority=2
             ),
             Project(
                 title="Data Visualization Dashboard",
-                description="Real-time analytics dashboard with interactive charts",
-                long_description="A comprehensive data visualization tool that processes large datasets and presents them through interactive charts and graphs. Features real-time updates, filtering, and export capabilities.",
+                description="Interactive data visualization with real-time updates",
+                long_description="A comprehensive dashboard for visualizing complex datasets with interactive charts, filtering options, and real-time data updates. Perfect for analytics and business intelligence.",
                 technologies=json.dumps(
-                    ["Python", "FastAPI", "D3.js", "MongoDB", "WebSockets"]),
-                github_url="https://github.com/ek/data-dashboard",
-                live_url="https://dashboard.ek.com",
+                    ["React", "D3.js", "FastAPI", "WebSockets", "MongoDB"]),
+                github_url="https://github.com/LizKodjo/Website_projects/tree/main/covid-dashboard",
                 featured=True,
-                category="data-science"
+                category="frontend",
+                status="planned",
+                priority=3
             ),
             Project(
-                title="Task Management App",
-                description="Collaborative task management with real-time updates",
-                long_description="A Kanban-style task management application with real-time collaboration features, file attachments, comments, and progress tracking. Implements WebSocket for live updates.",
+                title="E-Commerce Platform",
+                description="Full-stack e-commerce solution with modern tech stack",
+                long_description="A complete e-commerce platform featuring user authentication, product management, shopping cart, payment integration, and admin dashboard. Built with microservices architecture.",
                 technologies=json.dumps(
-                    ["React", "Node.js", "Socket.io", "MongoDB", "Express"]),
-                github_url="https://github.com/ek/task-manager",
+                    ["Python", "FastAPI", "React", "PostgreSQL", "Docker", "Redis", "Stripe API"]),
+                github_url="https://github.com/LizKodjo/Website_projects/tree/main/EcommerceWebsite",
+                live_url="https://ecommerce-demo.ek.com",
                 featured=False,
-                category="web"
+                category="web",
+                status="planned",
+                priority=4
             ),
             Project(
                 title="Machine Learning API",
@@ -91,19 +133,10 @@ def seed_sample_data():
                 technologies=json.dumps(
                     ["Python", "FastAPI", "Scikit-learn", "Docker", "Kubernetes", "Prometheus"]),
                 github_url="https://github.com/ek/ml-api",
-                featured=True,
-                category="data-science"
-            ),
-            Project(
-                title="Portfolio Website",
-                description="This very portfolio website showcasing my projects",
-                long_description="A responsive portfolio website built with React, FastAPI, and SCSS. Features a dark theme with reddish-gold accents, project filtering, and a contact form. Demonstrates full-stack development skills.",
-                technologies=json.dumps(
-                    ["Python", "FastAPI", "React", "SCSS", "SQLite", "SQLModel"]),
-                github_url="https://github.com/ek/portfolio",
-                live_url="https://ek-portfolio.com",
-                featured=True,
-                category="web"
+                featured=False,
+                category="data",
+                status="planned",
+                priority=5
             )
         ]
 
@@ -130,11 +163,11 @@ async def get_projects(
         if featured is not None:
             query = query.where(Project.featured == featured)
 
-        query = query.order_by(Project.featured.desc(),
+        query = query.order_by(Project.priority.asc(), Project.featured.desc(),
                                Project.created_at.desc())
 
         projects = session.exec(query).all()
-        print(f"📦 Returning {len(projects)} projects")
+        print(f"📦 Returning {len(projects)} projects from database.")
         return projects
     except Exception as e:
         print(f"❌ Error fetching projects: {e}")
@@ -151,6 +184,36 @@ async def get_project(project_id: int, session: Session = Depends(get_session)):
     except Exception as e:
         print(f"❌ Error fetching project {project_id}: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
+
+# Contact route
+
+
+@app.post("/contact")
+async def send_contact(contact: ContactMessageCreate, session: Session = Depends(get_session)):
+    try:
+        # Save to database
+        db_contact = ContactMessage(**contact.model_dump())
+        session.add(db_contact)
+        session.commit()
+        session.refresh(db_contact)
+
+        # Send email notification later
+        # await send_email notification
+
+        return {
+            "message": "Thank you for your message! I'll get back to you soon",
+            "status": "success"
+        }
+    except Exception as e:
+        print(f"❌ Error saving contact message: {e}")
+        raise HTTPException(status_code=500, detail="Failed to send message")
+
+# Optional email function
+
+
+async def send_email_notification(contact: ContactMessageCreate):
+    """This would send an email notification when someone contacts you.  I will set this up later"""
+    pass
 
 
 @app.get("/health")
@@ -188,4 +251,4 @@ async def debug_projects(session: Session = Depends(get_session)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)

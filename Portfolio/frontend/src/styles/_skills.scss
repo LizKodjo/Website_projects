@@ -1,0 +1,53 @@
+@use 'sass:map';
+@use 'variables' as *;
+
+// Skills Section
+.skills-section {
+    margin-top: $spacing-xl;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $spacing-lg;
+
+    @media (max-width: $breakpoint-mobile) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.skill-category {
+    background: $bg-secondary;
+    padding: $spacing-md;
+    border-radius: 10px;
+    border: 1px solid $border-color;
+}
+
+.skill-category-title {
+    color: $text-accent;
+    margin-bottom: $spacing-md;
+    font-size: 1.2rem;
+    border-bottom: 2px solid $text-accent;
+    padding-bottom: 0.5rem;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+}
+
+.skill-tag {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(179, 0, 0, 0.2));
+    color: $text-accent;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(179, 0, 0, 0.3));
+        transform: translateY(-2px);
+    }
+}

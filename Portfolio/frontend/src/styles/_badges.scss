@@ -1,0 +1,45 @@
+@use 'sass:map';
+@use 'variables' as *;
+
+// Status Badges
+.project-badges {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    &.status-completed {
+        background: rgba(76, 175, 80, 0.2);
+        color: #4caf50;
+        border: 1px solid #4caf50;
+    }
+    &.status-in-progress{
+        background: rgba(255, 152, 0, 0.2);
+        color: #ff9800;
+        border: 1px solid #ff9800;
+    }
+
+    &.status-planned {
+        background: rgba(33, 150, 243, 0.2);
+        color: #2196f3;
+        border: 1px solid #2196f3;
+    }
+}
+
+.project-link.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: $bg-tertiary;
+
+    &:hover {
+        transform: none;
+        background: $bg-tertiary;
+        color: $text-primary;
+    }
+}
