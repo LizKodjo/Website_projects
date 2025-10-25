@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const { items, removeFromCart, updateQuantity, clearCart, getCartTotal } =
     useCart();
 
@@ -78,13 +79,18 @@ export default function Cart() {
 
         <div className="cart-summary">
           <div className="total">
-            <strong>Total: ${getCartTotal().toFixed(2)}</strong>
+            <strong>Total: £{getCartTotal().toFixed(2)}</strong>
           </div>
           <div className="cart-actions">
             <Link to="/" className="continue-shopping">
               Continue Shopping
             </Link>
-            <button className="checkout-btn">Proceed to Checkout</button>
+            <button
+              onClick={() => navigate("/checkout")}
+              className="checkout-btn"
+            >
+              Proceed to Checkout
+            </button>
           </div>
         </div>
       </div>

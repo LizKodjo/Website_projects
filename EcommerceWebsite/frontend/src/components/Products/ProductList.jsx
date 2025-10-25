@@ -172,7 +172,7 @@ export default function ProductList() {
                   <p className="product-description">
                     {product.description?.substring(0, 80)}...
                   </p>
-                  <p className="product-price">${product.price}</p>
+                  <p className="product-price">£{product.price}</p>
                   <p className="product-category">{product.category}</p>
                   <p className="product-stock">
                     {product.stock_quantity > 0

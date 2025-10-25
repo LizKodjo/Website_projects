@@ -106,7 +106,7 @@ export default function ProductDetail() {
           <div className="product-info-section">
             <h1 className="product-title">{product.name}</h1>
 
-            <div className="product-price">${product.price}</div>
+            <div className="product-price">£{product.price}</div>
 
             <div className="product-meta">
               <span
@@ -156,7 +156,7 @@ export default function ProductDetail() {
                   onClick={handleAddToCart}
                   className="add-to-cart-btn large"
                 >
-                  Add to Cart - ${(product.price * quantity).toFixed(2)}
+                  Add to Cart - £{(product.price * quantity).toFixed(2)}
                 </button>
               </div>
             )}
@@ -165,7 +165,7 @@ export default function ProductDetail() {
             <div className="product-features">
               <h3>Features</h3>
               <ul>
-                <li>Free shipping on orders over $50</li>
+                <li>Free shipping on orders over £50</li>
                 <li>30-day money-back guarantee</li>
                 <li>Secure checkout</li>
                 <li>24/7 customer support</li>
