@@ -1,12 +1,13 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel, ConfigDict
 
 
 class OrderItemBase(BaseModel):
     product_id: int
+    product_name: str    
+    product_price: float
     quantity: int
-    price: float
 
 
 class OrderItemCreate(OrderItemBase):
@@ -21,8 +22,8 @@ class OrderItem(OrderItemBase):
 
 
 class OrderBase(BaseModel):
-    total_amount: float
     shipping_address: str
+    payment_method: str = "credit_card"
 
 
 class OrderCreate(OrderBase):
@@ -32,8 +33,16 @@ class OrderCreate(OrderBase):
 class Order(OrderBase):
     id: int
     user_id: int
+    order_number: str
+    total_amount: float
     status: str
+    payment_status: str
     created_at: datetime
+    updated_at: Optional[datetime] = None
     items: List[OrderItem]
 
     model_config = ConfigDict(from_attributes=True)
+    
+class OrderUpdate(BaseModel):
+    status: Optional[str] = None
+    payment_status: Optional[str] = None

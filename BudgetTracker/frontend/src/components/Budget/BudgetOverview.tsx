@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import type { Budget, Transaction } from "../../types";
+import { getCategoryIcon } from "../../utils/categories";
 
 interface BudgetOverviewProps {
   budgets: Budget[];
@@ -14,7 +15,7 @@ const BudgetOverview: FC<BudgetOverviewProps> = ({ budgets, transactions }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border dark:border-gray-600">
       <h2 className="text-xl font-bold mb-4">Budget Overview</h2>
 
       <div className="space-y-4">
@@ -24,7 +25,35 @@ const BudgetOverview: FC<BudgetOverviewProps> = ({ budgets, transactions }) => {
           const percentage = (spent / budget.amount) * 100;
 
           return (
-            <div key={budget.id} className="border rounded-lg p-4">
+            <div
+              key={budget.id}
+              className="border dark:border-gray-700 rounded-lg p-4 relative"
+            >
+              {/* Alert badge for exceeded budgets */}
+              {percentage >= 100 && (
+                <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+                  Over Budget!
+                </div>
+              )}
+
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold flex items-center">
+                  {getCategoryIcon(budget.category)}
+                  <span className="ml-2">{budget.category}</span>
+                </h3>
+                <span
+                  className={`text-sm font-medium ${
+                    percentage >= 90
+                      ? "text-red-600"
+                      : percentage > 75
+                      ? "text-yellow-600"
+                      : "text-gray-600"
+                  }`}
+                >
+                  £{spent.toFixed(2)} / £{budget.amount.toFixed(2)}
+                </span>
+              </div>
+
               <div className="flex justify-between items-center mb-2">
                 <h3 className="font-semibold">{budget.category}</h3>
                 <span className="text-sm text-gray-600">
@@ -32,7 +61,7 @@ const BudgetOverview: FC<BudgetOverviewProps> = ({ budgets, transactions }) => {
                 </span>
               </div>
 
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className={`h-2 rounded-full ${
                     percentage > 90

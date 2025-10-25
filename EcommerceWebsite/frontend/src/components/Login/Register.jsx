@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 
-export default function Register({ onToggleMode }) {
+export default function Register({ onSuccess }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    name: "",
+    full_name: "",
     confirmPassword: "",
   });
   const [error, setError] = useState("");
@@ -32,80 +32,96 @@ export default function Register({ onToggleMode }) {
 
     setLoading(true);
 
-    const result = await register({
-      email: formData.email,
-      password: formData.password,
-      name: formData.name,
-    });
+    try {
+      const userData = {
+        email: formData.email,
+        password: formData.password,
+        full_name: formData.full_name,
+      };
 
-    if (!result.success) {
-      setError(result.error);
+      console.log("📤 Sending registration data: ", userData);
+
+      const result = await register(userData);
+
+      if (result.success) {
+        onSuccess();
+      } else {
+        setError(result.error || "Registration failed");
+      }
+    } catch (err) {
+      console.error("Registration error: ", err);
+      setError("An unexpected error occurred");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
-    <>
-      <div className="auth-form">
-        <h2>Create Your Account</h2>
-        {error && <div className="error-message">{error}</div>}
+    <div className="auth-form">
+      <h2>Create Account</h2>
+      <p className="auth-subtitle">Join us today</p>
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Full Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+      {error && <div className="error-message">{error}</div>}
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="full_name">Full Name</label>
+          <input
+            type="text"
+            id="full_name"
+            name="full_name"
+            value={formData.full_name}
+            onChange={handleChange}
+            required
+            placeholder="Enter your full name"
+          />
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            placeholder="Enter your email"
+          />
+        </div>
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Creating Account..." : "Sign Up"}
-          </button>
-        </form>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            placeholder="Create a password"
+            minLength="6"
+          />
+        </div>
 
-        <p className="toggle-mode">
-          Already have an account?
-          <button className="link-button" onClick={onToggleMode}>
-            Login here
-          </button>
-        </p>
-      </div>
-    </>
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            required
+            placeholder="Confirm your password"
+            minLength="6"
+          />
+        </div>
+
+        <button type="submit" disabled={loading} className="auth-button">
+          {loading ? "Creating Account..." : "Create Account"}
+        </button>
+      </form>
+    </div>
   );
 }
