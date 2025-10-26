@@ -1,0 +1,46 @@
+@use 'sass:map';
+@use 'variables' as *;
+
+// Resume Section Styles
+.resume-section {
+  background: $bg-secondary;
+  padding: $spacing-lg;
+  border-radius: 10px;
+  border: 1px solid $border-color;
+  margin: $spacing-xl 0;
+  
+  h3 {
+    border-bottom: 2px solid $text-accent;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+  }
+}
+
+.resume-actions {
+  display: flex;
+  gap: $spacing-md;
+  flex-wrap: wrap;
+  
+  @media (max-width: $breakpoint-mobile) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Enhanced button styles for resume download
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  &.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}

@@ -53,6 +53,16 @@
         margin: 0;
         padding: 0;
 
+         .nav-resume {
+            margin-left: $spacing-sm;
+            
+            .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            }
+        }
+
         @media (max-width: $breakpoint-mobile) {
             display: none;
         }

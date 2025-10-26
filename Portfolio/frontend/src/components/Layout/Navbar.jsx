@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/nameLogo.png";
+import ResumeDownload from "../ResumeDownload";
 
 export default function Navbar() {
   const location = useLocation();
@@ -38,6 +39,9 @@ export default function Navbar() {
                 >
                   Contact
                 </Link>
+              </li>
+              <li className="nav-resume">
+                <ResumeDownload variant="primary" size="small" />
               </li>
             </ul>
 

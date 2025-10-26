@@ -123,8 +123,8 @@ def seed_sample_data():
                 live_url="https://ecommerce-demo.ek.com",
                 featured=False,
                 category="web",
-                status="planned",
-                priority=4
+                status="In progress",
+                priority=3
             ),
             Project(
                 title="Machine Learning API",
