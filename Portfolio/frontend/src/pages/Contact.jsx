@@ -39,7 +39,7 @@ export default function Contact() {
 
   return (
     <>
-      <section className="section">
+      <section className="section contact-page">
         <div className="container">
           <h1>Get In Touch</h1>
           <p className="subtitle" style={{ marginBottom: "3rem" }}>

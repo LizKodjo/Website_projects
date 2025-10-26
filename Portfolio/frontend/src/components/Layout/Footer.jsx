@@ -3,6 +3,15 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  // Function to handle scroll to top for footer links
+  const handleFooterLinkClick = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <footer className="footer">

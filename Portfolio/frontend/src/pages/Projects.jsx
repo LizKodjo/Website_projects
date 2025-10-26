@@ -128,7 +128,7 @@ export default function Projects() {
 
   if (loading) {
     return (
-      <section className="section">
+      <section className="section projects-page">
         <div className="container">
           {renderConnectionStatus()}
           <div style={{ textAlign: "center", padding: "4rem 0" }}>
