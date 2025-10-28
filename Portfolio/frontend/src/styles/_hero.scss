@@ -1,0 +1,81 @@
+@use 'sass:map';
+@use 'variables' as *;
+
+// Hero Section - Add top padding for navbar
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, $bg-primary 0%, $bg-secondary 100%);
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px; // Add padding for fixed navbar
+  
+  @media (max-width: $breakpoint-mobile) {
+    padding-top: 70px; // Slightly less on mobile if navbar is smaller
+    min-height: calc(100vh - 70px); // Adjust min-height accordingly
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    
+    .subtitle {
+      font-size: 1.5rem;
+      color: $text-secondary;
+      margin-bottom: $spacing-md;
+      
+      @media (max-width: $breakpoint-mobile) {
+        font-size: 1.2rem;
+      }
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: $spacing-sm;
+      margin-top: $spacing-lg;
+      
+      @media (max-width: $breakpoint-mobile) {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+// Section base styles with navbar offset
+.section {
+  padding: $spacing-xl 0;
+  
+  // Add top padding for first section after navbar
+  &:first-of-type {
+    padding-top: calc($spacing-xl + 20px); // Extra space after hero
+  }
+  
+  @media (max-width: $breakpoint-mobile) {
+    padding: $spacing-lg 0;
+    
+    &:first-of-type {
+      padding-top: calc($spacing-lg + 20px);
+    }
+  }
+}
+
+// Specific fix for projects and contact pages
+.projects-page,
+.contact-page {
+  padding-top: 100px; // Extra space for page headings
+  
+  @media (max-width: $breakpoint-mobile) {
+    padding-top: 80px;
+  }
+}

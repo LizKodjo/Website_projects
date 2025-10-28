@@ -11,11 +11,19 @@
     z-index: 1000;
     padding: $spacing-sm 0;
     border-bottom: 1px solid $border-color;
+    height: 70px; // Fixed height for consistent spacing
+    display: flex;
+    align-items: center;
+
+    @media (max-width: $breakpoint-mobile) {
+        height: 60px; // Slightly smaller on mobile
+    }
 
     .nav-content {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 100%;
     }
 
     .logo-link {
@@ -52,6 +60,16 @@
         gap: $spacing-lg;
         margin: 0;
         padding: 0;
+
+         .nav-resume {
+            margin-left: $spacing-sm;
+            
+            .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            }
+        }
 
         @media (max-width: $breakpoint-mobile) {
             display: none;

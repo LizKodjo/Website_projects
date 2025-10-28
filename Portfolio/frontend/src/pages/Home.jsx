@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ResumeDownload from "../components/ResumeDownload";
 
 export default function Home() {
   const HeroParticles = () => (
@@ -36,6 +37,7 @@ export default function Home() {
               <Link to="/contact" className="btn btn-secondary">
                 Get In Touch
               </Link>
+              <ResumeDownload variant="secondary" />
             </div>
           </div>
         </div>
@@ -70,6 +72,22 @@ export default function Home() {
               the latest web development trends. I believe in writing clean,
               maintainable code and creating intuitive user experiences.
             </p>
+          </div>
+
+          {/* Resume Download Section */}
+          <div className="resume-section">
+            <h3 style={{ color: "#d4af37", marginBottom: "1rem" }}>Resume</h3>
+            <p style={{ marginBottom: "1.5rem", color: "#b3b3b3" }}>
+              Looking for a more detailed overview of my experiene and skills?
+              Download my full resume to learn more about my background and
+              qualifications.
+            </p>
+            <div className="resume-actions">
+              <ResumeDownload variant="primary" />
+              <Link to="/contact" className="btn btn-primary">
+                Request More Info
+              </Link>
+            </div>
           </div>
 
           {/* Skills Section */}
