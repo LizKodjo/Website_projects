@@ -44,49 +44,51 @@ export default function CovidLineChart({ data }) {
 
   return (
     <>
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart
-          data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-          <XAxis
-            dataKey="date"
-            tick={{ fontSize: 12 }}
-            angle={-45}
-            textAnchor="end"
-            height={80}
-            interval="preserveStartEnd"
-          />
-          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 12 }} />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="cases"
-            stroke="#3b82f6"
-            strokeWidth={2}
-            dot={false}
-            name="Total Cases"
-          />
-          <Line
-            type="monotone"
-            dataKey="deaths"
-            stroke="#ef4444"
-            strokeWidth={2}
-            dot={false}
-            name="Total Deaths"
-          />
-          <Line
-            type="monotone"
-            dataKey="recovered"
-            stroke="#10b981"
-            strokeWidth={2}
-            dot={false}
-            name="Total Recovered"
-          />
-        </LineChart>
-      </ResponsiveContainer>
+      <div id="line-chart">
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart
+            data={data}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+            <XAxis
+              dataKey="date"
+              tick={{ fontSize: 12 }}
+              angle={-45}
+              textAnchor="end"
+              height={80}
+              interval="preserveStartEnd"
+            />
+            <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 12 }} />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="cases"
+              stroke="#3b82f6"
+              strokeWidth={2}
+              dot={false}
+              name="Total Cases"
+            />
+            <Line
+              type="monotone"
+              dataKey="deaths"
+              stroke="#ef4444"
+              strokeWidth={2}
+              dot={false}
+              name="Total Deaths"
+            />
+            <Line
+              type="monotone"
+              dataKey="recovered"
+              stroke="#10b981"
+              strokeWidth={2}
+              dot={false}
+              name="Total Recovered"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </>
   );
 }

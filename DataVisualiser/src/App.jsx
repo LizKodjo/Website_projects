@@ -10,6 +10,7 @@ import { covidApi, formatCountryData } from "./services/covidApi";
 import CountrySelector from "./components/Metric/CountrySelector";
 import LoadingSpinner from "./components/Layout/LoadingSpinner";
 import WorldMap from "./components/Charts/WorldMap";
+import ExportControls from "./components/Metric/ExportControls";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -127,6 +128,15 @@ function App() {
             <>
               <div className="mb-8">
                 <MetricCards data={worldwideData} />
+              </div>
+
+              <div className="mb-8">
+                <ExportControls
+                  historicalData={historicalData}
+                  countriesData={countriesData}
+                  selectedCountry={selectedCountry}
+                  worldwideData={worldwideData}
+                />
               </div>
 
               {/* Charts and Map Grid */}
