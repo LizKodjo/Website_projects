@@ -5,6 +5,8 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+![Dashboard](image.png)
+
 A professional dashboard for visualizing and analyzing global COVID-19 data with advanced export capabilities and interactive visualizations.
 
 ## ✨ Features
