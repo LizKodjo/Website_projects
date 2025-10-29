@@ -11,9 +11,30 @@ export default function Home() {
   );
 
   const skills = {
-    frontend: ["React ", "JavaScript ", "HTML/CSS ", "SCSS ", "Vite"],
+    frontend: ["React", "JavaScript", "HTML/CSS", "SCSS", "Vite"],
     backend: ["Python", "FastAPI", "SQL", "REST APIs", "SQLModel"],
     tools: ["Git", "Docker", "Testing", "VS Code", "Linux"],
+  };
+
+  const getSkillIcon = (skill) => {
+    const icons = {
+      React: <i class="fa-brands fa-react"></i>,
+      JavaScript: <i class="fa-brands fa-js"></i>,
+      "HTML/CSS": <i class="fa-brands fa-html5"></i>,
+      SCSS: <i class="fa-brands fa-sass"></i>,
+      Vite: "⚡",
+      Python: <i class="fa-brands fa-python"></i>,
+      FastAPI: "🚀",
+      SQL: "🗄️",
+      "REST APIs": "🔗",
+      SQLModel: "💾",
+      Git: <i class="fa-brands fa-github"></i>,
+      Docker: <i class="fa-brands fa-docker"></i>,
+      Testing: "🧪",
+      "VS Code": "⚙️",
+      Linux: <i class="fa-brands fa-linux"></i>,
+    };
+    return icons[skill] || "💻";
   };
 
   return (
@@ -37,7 +58,6 @@ export default function Home() {
               <Link to="/contact" className="btn btn-secondary">
                 Get In Touch
               </Link>
-              <ResumeDownload variant="secondary" />
             </div>
           </div>
         </div>
@@ -76,14 +96,8 @@ export default function Home() {
 
           {/* Resume Download Section */}
           <div className="resume-section">
-            <h3 style={{ color: "#d4af37", marginBottom: "1rem" }}>Resume</h3>
-            <p style={{ marginBottom: "1.5rem", color: "#b3b3b3" }}>
-              Looking for a more detailed overview of my experiene and skills?
-              Download my full resume to learn more about my background and
-              qualifications.
-            </p>
             <div className="resume-actions">
-              <ResumeDownload variant="primary" />
+              {/* <ResumeDownload variant="primary" /> */}
               <Link to="/contact" className="btn btn-primary">
                 Request More Info
               </Link>
@@ -92,9 +106,7 @@ export default function Home() {
 
           {/* Skills Section */}
           <div className="skills-section">
-            <h3 style={{ marginBottom: "2rem", color: "#d4af37" }}>
-              Technical Skills
-            </h3>
+            <h3> Technical Skills </h3>
 
             <div className="skills-grid">
               {Object.entries(skills).map(([category, skillList]) => (
@@ -105,7 +117,7 @@ export default function Home() {
                   <div className="skill-tags">
                     {skillList.map((skill) => (
                       <span key={skill} className="skill-tag">
-                        {skill}
+                        {getSkillIcon(skill)} {skill}
                       </span>
                     ))}
                   </div>

@@ -78,59 +78,59 @@ export default function Projects() {
   };
 
   // Connection status display
-  const renderConnectionStatus = () => {
-    if (connectionStatus === "checking") {
-      return (
-        <div
-          style={{
-            padding: "1rem",
-            background: "#2a2a2a",
-            borderRadius: "5px",
-            marginBottom: "1rem",
-          }}
-        >
-          🔄 Checking server connection...
-        </div>
-      );
-    }
-    if (connectionStatus === "connected") {
-      return (
-        <div
-          style={{
-            padding: "1rem",
-            background: "rgba(212, 175, 55, 0.1)",
-            border: "1px solid #d4af37",
-            borderRadius: "5px",
-            marginBottom: "1rem",
-          }}
-        >
-          ✅ Connected to server
-        </div>
-      );
-    }
-    if (connectionStatus === "disconnected") {
-      return (
-        <div
-          style={{
-            padding: "1rem",
-            background: "rgba(179, 0, 0, 0.1)",
-            border: "1px solid #b30000",
-            borderRadius: "5px",
-            marginBottom: "1rem",
-          }}
-        >
-          ❌ Server connection failed
-        </div>
-      );
-    }
-    return null;
-  };
+  // const renderConnectionStatus = () => {
+  //   if (connectionStatus === "checking") {
+  //     return (
+  //       <div
+  //         style={{
+  //           padding: "1rem",
+  //           background: "#2a2a2a",
+  //           borderRadius: "5px",
+  //           marginBottom: "1rem",
+  //         }}
+  //       >
+  //         🔄 Checking server connection...
+  //       </div>
+  //     );
+  //   }
+  //   if (connectionStatus === "connected") {
+  //     return (
+  //       <div
+  //         style={{
+  //           padding: "1rem",
+  //           background: "rgba(212, 175, 55, 0.1)",
+  //           border: "1px solid #d4af37",
+  //           borderRadius: "5px",
+  //           marginBottom: "1rem",
+  //         }}
+  //       >
+  //         ✅ Connected to server
+  //       </div>
+  //     );
+  //   }
+  //   if (connectionStatus === "disconnected") {
+  //     return (
+  //       <div
+  //         style={{
+  //           padding: "1rem",
+  //           background: "rgba(179, 0, 0, 0.1)",
+  //           border: "1px solid #b30000",
+  //           borderRadius: "5px",
+  //           marginBottom: "1rem",
+  //         }}
+  //       >
+  //         ❌ Server connection failed
+  //       </div>
+  //     );
+  //   }
+  //   return null;
+  // };
 
   if (loading) {
     return (
       <section className="section projects-page">
         <div className="container">
-          {renderConnectionStatus()}
+          {/* {renderConnectionStatus()} */}
           <div style={{ textAlign: "center", padding: "4rem 0" }}>
             <div className="loading-spinner"></div>
             <p style={{ marginTop: "1rem", color: "#b3b3b3" }}>
@@ -146,7 +146,7 @@ export default function Projects() {
     return (
       <section className="section">
         <div className="container">
-          {renderConnectionStatus()}
+          {/* {renderConnectionStatus()} */}
           <div className="error-message">
             <h3>Oops! Something went wrong</h3>
             <p>{error}</p>
@@ -178,7 +178,7 @@ export default function Projects() {
     <>
       <section className="section">
         <div className="container">
-          {renderConnectionStatus()}
+          {/* {renderConnectionStatus()} */}
           <h1>My Projects</h1>
           <p className="subtitle" style={{ marginBottom: "2rem" }}>
             A collection of my work showcasing different technologies and

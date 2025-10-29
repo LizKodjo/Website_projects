@@ -4,6 +4,30 @@
 // Skills Section
 .skills-section {
     margin-top: $spacing-xl;
+    padding: $spacing-lg;
+    background: $bg-secondary;
+    border-radius: 10px;
+    border: 1px solid $border-color;
+
+    h3 {
+        color: $text-accent;
+        text-align: center;
+        margin-bottom: $spacing-xl;
+        font-size: 2rem;
+        position: relative;
+
+        &::after{
+            content: '';
+            position:absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, $accent-red, $text-accent);
+            border-radius: 2px;
+        }
+    }
 }
 
 .skills-grid {
@@ -13,22 +37,57 @@
 
     @media (max-width: $breakpoint-mobile) {
         grid-template-columns: 1fr;
+        gap: $spacing-md;
     }
 }
 
 .skill-category {
-    background: $bg-secondary;
-    padding: $spacing-md;
+    background: $bg-primary;
+    padding: $spacing-lg;
     border-radius: 10px;
     border: 1px solid $border-color;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position:absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, $accent-red, $text-accent);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    &:hover{
+        transform: translateY(-5px);
+        border-color: $text-accent;
+        box-shadow: 0 8px rgba(212, 175, 55, 0.1);
+
+        &::before{
+            transform: scaleX(1);
+        }
+    }
 }
 
 .skill-category-title {
     color: $text-accent;
     margin-bottom: $spacing-md;
-    font-size: 1.2rem;
-    border-bottom: 2px solid $text-accent;
-    padding-bottom: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    // border-bottom: 2px solid $text-accent;
+    // padding-bottom: 0.5rem;
+
+    &::before{
+        content:'▸';
+        color: $accent-red;
+    }
 }
 
 .skill-tags {
@@ -38,16 +97,53 @@
 }
 
 .skill-tag {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(179, 0, 0, 0.2));
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(179, 0, 0, 0.15));
     color: $text-accent;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
     border: 1px solid rgba(212, 175, 55, 0.3);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 500;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(179, 0, 0, 0.2));
+        transition: left 0.3s ease;
+    }
 
     &:hover {
-        background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(179, 0, 0, 0.3));
         transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+        border-color: $text-accent;
+
+        &::before{
+            left: 0;
+        }
+    }
+
+    // Different colors for different skill categories
+    .skill-category:nth-child(1) &{
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(179, 0, 0, 0.15));
+        border-color: rgba(212, 175, 55, 0.3)
+    }
+
+    .skill-category:nth-child(2) & {
+        background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(33, 150, 243, 0.15));
+        border-color: rgba(76, 175, 80, 0.3);
+        color: #4caf50;
+    }
+
+    .skill-category:nth-child(3) & {
+        background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(103, 58, 183, 0.15));
+        border-color: rgba(156, 39, 176, 0.3);
+        color: #9c27b0;
     }
 }
