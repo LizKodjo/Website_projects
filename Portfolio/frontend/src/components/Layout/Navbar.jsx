@@ -87,9 +87,6 @@ export default function Navbar() {
                   Contact
                 </Link>
               </li>
-              <li className="nav-resume">
-                <ResumeDownload variant="primary" size="small" />
-              </li>
             </ul>
 
             {/* Mobile menu button */}
@@ -148,9 +145,6 @@ export default function Navbar() {
                     >
                       Contact
                     </Link>
-                  </li>
-                  <li className="mobile-resume">
-                    <ResumeDownload variant="primary" />
                   </li>
                 </ul>
 

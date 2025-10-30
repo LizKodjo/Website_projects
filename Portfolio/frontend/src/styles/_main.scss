@@ -147,9 +147,20 @@ h2 {
 // Projects Section
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: v.$spacing-md;
-    margin-top: v.$spacing-lg;
+    // margin-top: v.$spacing-lg;
+
+    @media (max-width: v.$breakpoint-mobile) {
+        grid-template-columns: 1fr;
+        gap: v.$spacing-sm;
+        margin-top: v.$spacing-md;
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+        gap: v.$spacing-sm;
+    }
 }
 
 .project-card {
@@ -160,6 +171,15 @@ h2 {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+
+    @media (max-width: v.$breakpoint-mobile) {
+        padding: v.$spacing-sm;
+        min-height: auto;
+        margin-bottom: v.$spacing-sm;
+    }
 
     &:hover {
         @include v.card-hover;
@@ -170,17 +190,51 @@ h2 {
         justify-content: space-between;
         align-items: flex-start;
         margin-bottom: v.$spacing-sm;
+        gap: v.$spacing-sm;
+
+        @media (max-width: v.$breakpoint-mobile) {
+            flex-direction: column;
+            gap: v.$spacing-xs;
+            margin-bottom: v.$spacing-xs;
+        }
     }
 
     .project-title {
         font-size: 1.3rem;
         color: v.$text-accent;
         margin-bottom: v.$spacing-xs;
+        line-height: 1.3;
+        flex: 1;
+
+        @media (max-width: v.$breakpoint-mobile) {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+    }
+
+    .project-badges {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        flex-shrink: 0;
+
+        @media (max-width: v.$breakpoint-mobile) {
+            align-self: flex-start;
+            flex-wrap: wrap;
+        }
     }
 
     .project-description {
         color: v.$text-secondary;
         margin-bottom: v.$spacing-sm;
+        line-height: 1.5;
+        flex: 1;
+
+        @media (max-width: v.$breakpoint-mobile) {
+            font-size: 0.9rem;
+            margin-bottom: v.$spacing-xs;
+            line-height: 1.4;
+        }
     }
 
     .tech-tags {
@@ -189,6 +243,11 @@ h2 {
         gap: v.$spacing-xs;
         margin-bottom: v.$spacing-sm;
 
+        @media (max-width: v.$breakpoint-mobile) {
+            gap: 0.4rem;
+            margin-bottom: v.$spacing-xs;
+        }
+
         .tech-tag {
             background: v.$bg-tertiary;
             color: v.$text-accent;
@@ -196,12 +255,24 @@ h2 {
             border-radius: 15px;
             font-size: 0.8rem;
             font-family: v.$font-mono;
+
+            @media (max-width: v.$breakpoint-mobile) {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.6rem;
+            }
         }
     }
 
     .project-links {
         display: flex;
         gap: v.$spacing-sm;
+        margin-top: auto;
+
+        @media (max-width: v.$breakpoint-mobile) {
+            flex-direction: column;
+            gap: v.$spacing-xs;
+            margin-top: v.$spacing-sm;
+        }
 
         a {
             color: v.$text-primary;
@@ -357,23 +428,23 @@ h2 {
         transform: scaleX(1);
     }
 
-    &.featured {
-        @include v.gold-glow;
-        border-color: v.$text-accent;
+    // &.featured {
+    //     @include v.gold-glow;
+    //     border-color: v.$text-accent;
 
-        &::after {
-            content: '⭐ Featured';
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: v.$text-accent;
-            color: v.$bg-primary;
-            padding: 0.25rem 0.5rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-    }
+    //     &::after {
+    //         content: '⭐ Featured';
+    //         position: absolute;
+    //         top: 1rem;
+    //         right: 1rem;
+    //         background: v.$text-accent;
+    //         color: v.$bg-primary;
+    //         padding: 0.25rem 0.5rem;
+    //         border-radius: 15px;
+    //         font-size: 0.8rem;
+    //         font-weight: 600;
+    //     }
+    // }
 }
 
 // Custom scrollbar to match theme
@@ -441,6 +512,23 @@ h2 {
     flex-wrap: wrap;
     gap: v.$spacing-sm;
     justify-content: center;
+    margin-bottom: v.$spacing-lg;
+
+    @media (max-width: v.$breakpoint-mobile) {
+        gap: v.$spacing-xs;
+        margin-bottom: v.$spacing-md;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+
+        // Hide scrollba
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
+    }
 }
 
 .filter-btn {
@@ -452,6 +540,13 @@ h2 {
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: v.$font-primary;
+    white-space: nowrap;
+
+    @media (max-width: v.$breakpoint-mobile) {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
 
     &:hover {
         border-color: v.$text-accent;
@@ -512,13 +607,57 @@ h2 {
     transition: all 0.3s ease;
     font-size: 0.9rem;
 
+    @media (max-width: v.$breakpoint-mobile) {
+        padding: 0.6rem 1rem;
+        justify-content: center;
+        font-size: 0.85rem;
+    }
+
     &:hover {
         background: v.$text-accent;
         color: v.$bg-primary;
         transform: translateY(-2px);
+
+        @media (max-width: v.$breakpoint-mobile) {
+            transform: none;
+        }
+    }
+
+    &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: v.$bg-tertiary;
+
+        &:hover {
+            transform: none;
+            background: v.$bg-tertiary;
+            color: v.$text-primary;
+        }
     }
 
     svg {
         flex-shrink: 0;
+    }
+}
+
+.projects-page{
+    .container {
+        @media (max-width: v.$breakpoint-mobile) {
+            padding: 0 v.$spacing-sm;
+        }
+    }
+
+    h1 {
+        @media (max-width: v.$breakpoint-mobile) {
+            font-size: 2rem;
+            text-align: center;
+        }
+    }
+
+    .subtitle {
+        @media (max-width: v.$breakpoint-mobile){
+            text-align: center;
+            font-size: 1rem;
+        }
     }
 }

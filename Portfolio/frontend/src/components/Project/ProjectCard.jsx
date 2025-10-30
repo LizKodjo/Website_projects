@@ -30,10 +30,11 @@ export default function ProjectCard({ project }) {
         <div className="project-header">
           <h3 className="project-title">{project.title}</h3>
           <div className="project-badges">
+            {/* Only show featured badge if project is featured */}
             {project.featured && (
               <span className="featured-badge">Featured</span>
             )}
-            {getStatusBadge(project.status)}
+            {getStatusBadge(project.status || "completed")}
           </div>
         </div>
 

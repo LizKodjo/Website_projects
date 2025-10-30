@@ -103,14 +103,14 @@ def seed_sample_data():
             ),
             Project(
                 title="Data Visualization Dashboard",
-                description="Interactive data visualization with real-time updates",
-                long_description="A comprehensive dashboard for visualizing complex datasets with interactive charts, filtering options, and real-time data updates. Perfect for analytics and business intelligence.",
+                description="Professional pandemic tracking and analysis platform",
+                long_description="a comprehensive dashboard featuring interactive data visualizations, geographic mapping, and advanced export capabilities. The application processes real-time COVID-19 data to provide insights through intuitive charts and maps.",
                 technologies=json.dumps(
-                    ["React", "D3.js", "FastAPI", "WebSockets", "MongoDB"]),
-                github_url="https://github.com/LizKodjo/Website_projects/tree/main/covid-dashboard",
+                    ["React", "Tailwind CSS", "REST API", "Recharts"]),
+                github_url="https://github.com/LizKodjo/Website_projects/tree/main/DataVisualiser",
                 featured=True,
                 category="frontend",
-                status="planned",
+                status="in-progress",
                 priority=3
             ),
             Project(

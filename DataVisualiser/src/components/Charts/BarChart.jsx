@@ -41,35 +41,37 @@ export default function CovidBarChart({ data }) {
 
   return (
     <>
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart
-          data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-          <XAxis
-            dataKey="name"
-            tick={{ fontSize: 12 }}
-            angle={-45}
-            textAnchor="end"
-            height={80}
-          />
-          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 12 }} />
-          <Tooltip content={<CustomTooltip />} />
-          <Bar
-            dataKey="cases"
-            fill="#3b82f6"
-            name="Total Cases"
-            radius={[4, 4, 0, 0]}
-          />
-          <Bar
-            dataKey="deaths"
-            fill="#ef4444"
-            name="Total Deaths"
-            radius={[4, 4, 0, 0]}
-          />
-        </BarChart>
-      </ResponsiveContainer>
+      <div id="bar-chart">
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart
+            data={data}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+            <XAxis
+              dataKey="name"
+              tick={{ fontSize: 12 }}
+              angle={-45}
+              textAnchor="end"
+              height={80}
+            />
+            <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 12 }} />
+            <Tooltip content={<CustomTooltip />} />
+            <Bar
+              dataKey="cases"
+              fill="#3b82f6"
+              name="Total Cases"
+              radius={[4, 4, 0, 0]}
+            />
+            <Bar
+              dataKey="deaths"
+              fill="#ef4444"
+              name="Total Deaths"
+              radius={[4, 4, 0, 0]}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </>
   );
 }
