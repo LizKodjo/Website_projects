@@ -1,47 +1,51 @@
-from fastapi.testclient import TestClient
 import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-from app.db.database import Base, get_db
-
-from ..app.main import app
-
-# Test database
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={
-                       "check_same_thread": False})
-TestingSesssionLocal = sessionmaker(
-    autocommit=False, autoflush=False, bind=engine)
 
 
-def override_get_db():
-    try:
-        db = TestingSesssionLocal()
-        yield db
-    finally:
-        db.close()
+def test_register_user(client):
+    user_data = {
+        "email": "newuser@example.com",
+        "password": "securepassword123",
+        "full_name": "New user"
+    }
 
-
-app.dependency_overrides[get_db] = override_get_db
-
-client = TestClient(app)
-
-
-@pytest.fixture(scope="function")
-def test_db():
-    Base.metadata.create_all(bind=engine)
-    yield
-    Base.metadata.drop_all(bind=engine)
-
-
-def test_health_check():
-    response = client.get("/api/health")
+    response = client.post("/api/auth/register", json=user_data)
     assert response.status_code == 200
-    assert response.json()["status"] == "healthy"
+    data = response.json()
+    assert data["email"] == "newuser@example.com"
+    assert "id" in data
+    assert "hashed_password" not in data
 
 
-def test_root_endpoint():
-    response = client.get("/")
+def test_login_success(client, test_user):
+    login_data = {
+        "username": "test@example.com",
+        "password": "testpassword123"
+    }
+
+    response = client.post("/api/auth/login", data=login_data)
     assert response.status_code == 200
-    assert "version" in response.json()
+    data = response.json()
+    assert "access_token" in data
+    assert data["token_type"] == "bearer"
+    assert data["email"] == "test@example.com"
+
+
+def test_login_wrong_password(client, test_user):
+    login_data = {
+        "username": "test@example.com",
+        "password": "wrongpassword"
+    }
+
+    response = client.post("/api/auth/login", data=login_data)
+    assert response.status_code == 401
+
+
+def test_protected_endpint_without_token(client):
+    response = client.get(".api/tasks/")
+    assert response.status_code == 401
+
+
+def test_protected_endpoint_with_invalid_token(client):
+    headers = {"Authorization": "Bearer invalid_token"}
+    response = client.get("/api/tasks/", headers=headers)
+    assert response.status_code == 401
