@@ -1,0 +1,52 @@
+# version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgresql://taskflow_user:taskflow_pass@db:5432/taskflow_db
+      - SECRET_KEY=${SECRET_KEY}
+      - CORS_ORIGINS=["https://yourdomain.com"]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`api.yourdomain.com`)"
+    networks:
+      - app-network
+      - web
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`yourdomain.com`)"
+    networks:
+      - app-network
+      - web
+
+  db:
+    image: postgres:13-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=taskflow_user
+      - POSTGRES_PASSWORD=taskflow_pass
+      - POSTGRES_DB=taskflow_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+  web:
+    external: true
+
+volumes:
+  postgres_data:
