@@ -4,6 +4,8 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
+from app.api import auth, tasks, users
+from app.core.logging import setup_logging
 from app.db.database import Base, get_db, engine
 from app.core.config import settings
 
