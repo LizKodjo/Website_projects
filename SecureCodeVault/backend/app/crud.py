@@ -99,7 +99,7 @@ def verify_share_password(db: Session, share_link_id: int, password: str):
     return auth.verify_password(password, share_link.password_hash)
 
 
-def creat_audit_log(db: Session, user_id: int, action: str, resource_type: str, resource_id: int = None, details: str = None):
+def create_audit_log(db: Session, user_id: int, action: str, resource_type: str, resource_id: int = None, details: str = None):
     """Create an audit log entry"""
     audit_log = models.AuditLog(user_id=user_id, action=action,
                                 resource_type=resource_type, resource_id=resource_id, details=details)
