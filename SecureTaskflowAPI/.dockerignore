@@ -1,0 +1,12 @@
+**/.git
+**/.dockerignore
+**/Dockerfile
+**/node_modules
+**/npm-debug.log
+**/.env
+**/venv
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.python-version
