@@ -1,5 +1,5 @@
 import pytest
-from backend.app.encryption import EncryptionService
+from app.encryption import EncryptionService
 
 
 def test_encryption_service():

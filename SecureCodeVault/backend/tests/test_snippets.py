@@ -128,6 +128,12 @@ def test_create_share_link(client, test_user):
         json=share_data,
         headers=test_user["headers"]
     )
+
+    # Debug
+    if response.status_code != 200:
+        print(f"Share link creation failed: {response.status_code}")
+        print(f"Response: {response.json()}")
+
     assert response.status_code == 200
     data = response.json()
     assert "token" in data

@@ -81,10 +81,14 @@ def get_share_link_by_token(db: Session, token: str):
         return None
 
     # Check if expired
-    if share_link.expires_at and share_link.expires_at < datetime.now(timezone.utc):
-        share_link.is_active = False
-        db.commit()
-        return None
+    if share_link.expires_at:
+        expires_at_aware = share_link.expires_at.replace(tzinfo=timezone.utc)
+        current_time_aware = datetime.now(timezone.utc)
+
+        if expires_at_aware < current_time_aware:
+            share_link.is_active = False
+            db.commit()
+            return None
 
     return share_link
 

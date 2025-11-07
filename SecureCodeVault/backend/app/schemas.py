@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, validator
+from pydantic import BaseModel, EmailStr, field_validator
 from typing import Optional
 from datetime import datetime
 
@@ -12,7 +12,7 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
-    @validator('password')
+    @field_validator('password')
     def validate_password(cls, v):
         if not v or len(v.strip()) == 0:
             raise ValueError('Password cannot be empty')
@@ -70,9 +70,12 @@ class SnippetResponse(SnippetBase):
 
 
 class ShareLinkCreate(BaseModel):
-    snippet_id: int
+    # snippet_id: int
     expires_hours: Optional[int] = 24
     password: Optional[str] = None
+
+    class Config:
+        from_attributes = True
 
 
 class ShareLinkResponse(BaseModel):

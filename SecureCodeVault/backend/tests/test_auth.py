@@ -1,6 +1,6 @@
 import pytest
-from backend.app import auth, crud
-from backend.app.schemas import UserCreate
+
+from app import auth
 
 
 def test_password_hashing():
